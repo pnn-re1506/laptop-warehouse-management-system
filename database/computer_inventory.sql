@@ -37,7 +37,7 @@ CREATE TABLE `Account` (
 --
 
 INSERT INTO `Account` (`fullName`, `userName`, `password`, `role`, `status`, `email`) VALUES
-('Admin', 'admin', '$2a$12$Y87zSnx.tpFvieylSeXuo.agjb7swi3UVnoo6KVMY9xP5STj4zJhm', 'Admin', 1, 'phucnhanpht@gmail.com'),
+('Admin', 'admin', '$2a$12$Y87zSnx.tpFvieylSeXuo.agjb7swi3UVnoo6KVMY9xP5STj4zJhm', 'Admin', 1, 'phucnhanpht@gmail.com');
 
 
 -- --------------------------------------------------------

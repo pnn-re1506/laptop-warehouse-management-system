@@ -1,5 +1,10 @@
-# IntelliJ build output
+# IntelliJ IDEA
+**/.idea/
+*.iml
+
+# Build output
 out/
 *.class
-*.iml
-.idea/
+
+# Logs
+*.log

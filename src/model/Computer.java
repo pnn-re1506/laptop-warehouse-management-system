@@ -30,73 +30,73 @@ public class Computer {
     this.status = status;
 }
 
-public String getProductId(){
-    return this.productId;
-}
-public String getProductName(){
-    return this.productName;
-}
-public int getQuantity(){
-    return this.quantity;
-}
-public String getCpuName(){
-    return this.cpuName;
-}
-public String getRam(){
-    return this.ram;
-}
-public String getGraphicsCard(){
-    return this.graphicsCard;
-}
-public double getImportPrice(){
-    return this.importPrice;
-}
-public double getExportPrice(){
-    return this.exportPrice;
-}
-public String getType(){
-    return this.type;
-}
-public String getStorage(){
-    return this.storage;
-}
-public int getStatus(){
-    return this.status;
-}
+    public String getProductId(){
+        return this.productId;
+    }
+    public String getProductName(){
+        return this.productName;
+    }
+    public int getQuantity(){
+        return this.quantity;
+    }
+    public String getCpuName(){
+        return this.cpuName;
+    }
+    public String getRam(){
+        return this.ram;
+    }
+    public String getGraphicsCard(){
+        return this.graphicsCard;
+    }
+    public double getImportPrice(){
+        return this.importPrice;
+    }
+    public double getExportPrice(){
+        return this.exportPrice;
+    }
+    public String getType(){
+        return this.type;
+    }
+    public String getStorage(){
+        return this.storage;
+    }
+    public int getStatus(){
+        return this.status;
+    }
 
-public void setProductId(String productId){
-    this.productId = productId;
-}
-public void setProductName(String productName){
-    this.productName = productName;
-}
-public void setQuantity(int quantity){
-    this.quantity = quantity;
-}
-public void setCpuName(String cpuName){
-    this.cpuName = cpuName;
-}
-public void setRam(String ram){
-    this.ram = ram;
-}
-public void setGraphicsCard(String graphicsCard){
-  this.graphicsCard = graphicsCard;
-}
-public void setImportPrice(double importPrice){
-    this.importPrice = importPrice;
-}
-public void setExportPrice(double exportPrice){
-    this.exportPrice = exportPrice;
-}
-public void setType(String type){
-    this.type = type;
-}
-public void setStorage(String storage){
-    this.storage = storage;
-}
-public void setStatus(int status){
-    this.status = status;
-}
+    public void setProductId(String productId){
+        this.productId = productId;
+    }
+    public void setProductName(String productName){
+        this.productName = productName;
+    }
+    public void setQuantity(int quantity){
+        this.quantity = quantity;
+    }
+    public void setCpuName(String cpuName){
+        this.cpuName = cpuName;
+    }
+    public void setRam(String ram){
+        this.ram = ram;
+    }
+    public void setGraphicsCard(String graphicsCard){
+      this.graphicsCard = graphicsCard;
+    }
+    public void setImportPrice(double importPrice){
+        this.importPrice = importPrice;
+    }
+    public void setExportPrice(double exportPrice){
+        this.exportPrice = exportPrice;
+    }
+    public void setType(String type){
+        this.type = type;
+    }
+    public void setStorage(String storage){
+        this.storage = storage;
+    }
+    public void setStatus(int status){
+        this.status = status;
+    }
 
     @Override
     public String toString() {

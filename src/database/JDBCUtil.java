@@ -1,11 +1,10 @@
-package config;
+package database;
 
 import com.mysql.jdbc.Driver;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 
 public class JDBCUtil {
     public static Connection getConnection(){

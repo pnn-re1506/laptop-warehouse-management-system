@@ -4,7 +4,7 @@ public class Account{
 
         private String fullName;
         private String userName;
-        private int password;
+        private String password;
         private String role;
         private int status;
         private String email;
@@ -12,7 +12,7 @@ public class Account{
     public Account() {
     }
 
-    public Account(String fullName, String userName, int password, String role, int status, String email){
+    public Account(String fullName, String userName, String password, String role, int status, String email){
         this.fullName = fullName;
         this.userName = userName;
         this.password = password;
@@ -27,7 +27,7 @@ public class Account{
     public String getUserName(){
         return this.userName;
     }
-    public int getPassword(){
+    public String getPassword(){
         return this.password;
     }
     public String getRole(){
@@ -46,7 +46,7 @@ public class Account{
     public void setFullName(String fullName){
         this.fullName = fullName;
     }
-    public void setPassword(int password){
+    public void setPassword(String password){
         this.password = password;
     }
     public void setRole(String role){
@@ -63,7 +63,7 @@ public class Account{
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Account account = (Account) o;
-        return password == account.password && status == account.status && Objects.equals(fullName, account.fullName) && Objects.equals(userName, account.userName) && Objects.equals(role, account.role) && Objects.equals(email, account.email);
+        return Objects.equals(password, account.password) && status == account.status && Objects.equals(fullName, account.fullName) && Objects.equals(userName, account.userName) && Objects.equals(role, account.role) && Objects.equals(email, account.email);
     }
 
     @Override

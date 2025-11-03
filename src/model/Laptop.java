@@ -7,8 +7,8 @@ public class Laptop extends Computer {
 
 
 
-    public Laptop(String productId, String productName, int quantity, String cpuName, String ram, String graphicsCard, double importPrice, double exportPrice, String type, String storage, int status, double screenSize) {
-        super(productId, productName, quantity, cpuName, ram, graphicsCard, importPrice, exportPrice, type, storage, status);
+    public Laptop(String productId, String productName, int quantity, String cpuName, String ram, String graphicsCard, double importPrice, double exportPrice, String storage, int status, double screenSize) {
+        super(productId, productName, quantity, cpuName, ram, graphicsCard, importPrice, exportPrice, storage, status);
         this.screenSize = screenSize;
     }
 

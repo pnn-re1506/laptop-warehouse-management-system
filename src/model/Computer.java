@@ -9,14 +9,13 @@ public class Computer {
     private String graphicsCard;
     private double importPrice;
     private double exportPrice;
-    private String type;
     private String storage;
     private int status;
 
     public Computer() {
     }
 
-    public Computer(String productId, String productName, int quantity, String cpuName, String ram, String graphicsCard, double importPrice, double exportPrice, String type, String storage, int status){
+    public Computer(String productId, String productName, int quantity, String cpuName, String ram, String graphicsCard, double importPrice, double exportPrice, String storage, int status){
     this.productId = productId;  
     this.productName = productName;
     this.quantity = quantity;
@@ -25,7 +24,6 @@ public class Computer {
     this.graphicsCard = graphicsCard;
     this.importPrice = importPrice;
     this.exportPrice = exportPrice;
-    this.type = type;
     this.storage = storage;
     this.status = status;
 }
@@ -53,9 +51,6 @@ public class Computer {
     }
     public double getExportPrice(){
         return this.exportPrice;
-    }
-    public String getType(){
-        return this.type;
     }
     public String getStorage(){
         return this.storage;
@@ -88,9 +83,6 @@ public class Computer {
     public void setExportPrice(double exportPrice){
         this.exportPrice = exportPrice;
     }
-    public void setType(String type){
-        this.type = type;
-    }
     public void setStorage(String storage){
         this.storage = storage;
     }
@@ -109,7 +101,6 @@ public class Computer {
                 ", graphicsCard='" + graphicsCard + '\'' +
                 ", importPrice=" + importPrice +
                 ", exportPrice=" + exportPrice +
-                ", type='" + type + '\'' +
                 ", storage='" + storage + '\'' +
                 ", status=" + status +
                 '}';
@@ -119,11 +110,11 @@ public class Computer {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Computer computer = (Computer) o;
-        return quantity == computer.quantity && Double.compare(importPrice, computer.importPrice) == 0 && Double.compare(exportPrice, computer.exportPrice) == 0 && status == computer.status && Objects.equals(productId, computer.productId) && Objects.equals(productName, computer.productName) && Objects.equals(cpuName, computer.cpuName) && Objects.equals(ram, computer.ram) && Objects.equals(graphicsCard, computer.graphicsCard) && Objects.equals(type, computer.type) && Objects.equals(storage, computer.storage);
+        return quantity == computer.quantity && Double.compare(importPrice, computer.importPrice) == 0 && Double.compare(exportPrice, computer.exportPrice) == 0 && status == computer.status && Objects.equals(productId, computer.productId) && Objects.equals(productName, computer.productName) && Objects.equals(cpuName, computer.cpuName) && Objects.equals(ram, computer.ram) && Objects.equals(graphicsCard, computer.graphicsCard) && Objects.equals(storage, computer.storage);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(productId, productName, quantity, cpuName, ram, graphicsCard, importPrice, exportPrice, type, storage, status);
+        return Objects.hash(productId, productName, quantity, cpuName, ram, graphicsCard, importPrice, exportPrice, storage, status);
     }
 }

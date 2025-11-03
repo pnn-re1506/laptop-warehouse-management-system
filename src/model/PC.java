@@ -5,8 +5,8 @@ import java.util.Objects;
 public class PC extends Computer{
     private String mainBoard;
 
-    public PC(String productId, String productName, int quantity, String cpuName, String ram, String graphicsCard, double importPrice, double exportPrice, String type, String storage, int status, String mainBoard) {
-        super(productId, productName, quantity, cpuName, ram, graphicsCard, importPrice, exportPrice, type, storage, status);
+    public PC(String productId, String productName, int quantity, String cpuName, String ram, String graphicsCard, double importPrice, double exportPrice, String storage, int status, String mainBoard) {
+        super(productId, productName, quantity, cpuName, ram, graphicsCard, importPrice, exportPrice, storage, status);
         this.mainBoard = mainBoard;
     }
 

@@ -9,9 +9,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class SupplierDao implements DAOInterface<Supplier>{
+public class SupplierDAO implements DAOInterface<Supplier>{
 
-    public static SupplierDao getInstance(){ return new SupplierDao();}
+    public static SupplierDAO getInstance(){ return new SupplierDAO();}
     @Override
     public int insert(Supplier supplier) {
         int result = 0;

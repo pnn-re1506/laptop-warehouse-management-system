@@ -15,10 +15,6 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import model.Account;
 
-/**
- *
- * @author Tran Nhat Sinh
- */
 public class Admin extends javax.swing.JFrame {
 
     /**

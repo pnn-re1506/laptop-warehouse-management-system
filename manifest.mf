@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+X-COMMENT: Main-Class will be added automatically by build
+Main-Class: view.Login
+Class-Path: lib/itextpdf-5.5.12.jar lib/javax.activation-1.2.0.jar lib/javax.mail.jar lib/jcalendar-1.4.jar lib/jxl-2.6.jar lib/lookandfeel.jar lib/mysql-connector-java-8.0.30.jar lib/protobuf-java-3.19.4.jar

@@ -82,7 +82,7 @@ public class SupplierDAO implements DAOInterface<Supplier>{
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
                 String supplierId = rs.getString("supplierId");
-                String supplierName = rs.getString("tenNhaCungCap");
+                String supplierName = rs.getString("supplierName");
                 String phone = rs.getString("phone");
                 String address = rs.getString("address");
                 Supplier s = new Supplier(supplierId, supplierName, phone, address);

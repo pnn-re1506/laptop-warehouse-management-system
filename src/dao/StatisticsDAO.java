@@ -60,7 +60,7 @@ public class StatisticsDAO {
         return result;
     }
 
-    public ArrayList<ProductStatistics> getThongKe() {
+    public ArrayList<ProductStatistics> getStatistics() {
         ArrayList<ProductStatistics> result = new ArrayList<ProductStatistics>();
         try {
             Connection con = JDBCUtil.getConnection();

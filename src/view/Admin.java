@@ -664,8 +664,8 @@ public class Admin extends javax.swing.JFrame {
         // TODO add your handling code here:
         int relly = JOptionPane.showConfirmDialog(
                 null,
-                "Bạn muốn thoát khỏi chương trình ?",
-                "Xác nhận",
+                "Do you want to exit the program?",
+                "Exit Confirmation",
                 JOptionPane.YES_NO_OPTION);
         if (relly == JOptionPane.YES_OPTION) {
             this.dispose();
@@ -728,7 +728,7 @@ public class Admin extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-        int resp = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn thoát ?", "Exit?", JOptionPane.YES_NO_OPTION);
+        int resp = JOptionPane.showConfirmDialog(this, "Are you sure you want to exit?", "Exit?", JOptionPane.YES_NO_OPTION);
         if (resp == JOptionPane.YES_OPTION) {
             this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         } else {

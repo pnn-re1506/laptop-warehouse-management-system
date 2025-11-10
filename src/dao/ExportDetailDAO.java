@@ -10,6 +10,8 @@ import java.util.ArrayList;
 
 public class ExportDetailDAO implements DAOInterface<ReceiptDetail> {
     public static ExportDetailDAO getInstance(){ return new ExportDetailDAO();}
+    
+    @Override
     public int insert(ReceiptDetail receiptDetail) {
         int result = 0;
         try {

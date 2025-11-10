@@ -14,6 +14,13 @@ public class Receipt {
     public Receipt() {
     }
 
+    public Receipt(String receiptID, Timestamp createdDate, String createdBy, double totalAmount) {
+        this.receiptID = receiptID;
+        this.createdDate = createdDate;
+        this.createdBy = createdBy;
+        this.totalAmount = totalAmount;
+    }
+
     public Receipt(String receiptID, double totalAmount, ArrayList<ReceiptDetail> receiptDetails, String createdBy, Timestamp createdDate) {
         this.receiptID = receiptID;
         this.totalAmount = totalAmount;

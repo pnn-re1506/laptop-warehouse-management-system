@@ -131,7 +131,7 @@ public class ImportDAO implements DAOInterface<ImportReceipt>{
                 String importId = rs.getString("importId");
                 Timestamp createdDate = rs.getTimestamp("createdDate");
                 String createdBy = rs.getString("createdBy");
-                double totalAmount = rs.getDouble("tongTien");
+                double totalAmount = rs.getDouble("totalAmount");
                 Receipt p = new Receipt(importId, totalAmount, ImportDetailDAO.getInstance().selectAll(importId), createdBy, createdDate);
                 result.add(p);
             }

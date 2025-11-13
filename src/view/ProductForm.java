@@ -71,18 +71,19 @@ public class ProductForm extends javax.swing.JInternalFrame {
 
     public final void initTable() {
         tblModel = new DefaultTableModel();
-        String[] headerTbl = new String[]{"Product ID", "Product Name", "Quantity", "Import Price", "Export Price", "CPU", "RAM", "Storage", "Type"};
+        String[] headerTbl = new String[]{"Product ID", "Product Name", "Quantity", "Import Price", "Export Price", "CPU","Graphics Card" ,"RAM", "Storage", "Type"};
         tblModel.setColumnIdentifiers(headerTbl);
         tblSanPham.setModel(tblModel);
-        tblSanPham.getColumnModel().getColumn(0).setPreferredWidth(5);
-        tblSanPham.getColumnModel().getColumn(1).setPreferredWidth(200);
-        tblSanPham.getColumnModel().getColumn(2).setPreferredWidth(5);
+        tblSanPham.getColumnModel().getColumn(0).setPreferredWidth(3);
+        tblSanPham.getColumnModel().getColumn(1).setPreferredWidth(140);
+        tblSanPham.getColumnModel().getColumn(2).setPreferredWidth(3);
         tblSanPham.getColumnModel().getColumn(3).setPreferredWidth(5);
         tblSanPham.getColumnModel().getColumn(4).setPreferredWidth(5);
         tblSanPham.getColumnModel().getColumn(5).setPreferredWidth(50);
-        tblSanPham.getColumnModel().getColumn(6).setPreferredWidth(5);
-        tblSanPham.getColumnModel().getColumn(7).setPreferredWidth(5);
-        tblSanPham.getColumnModel().getColumn(8).setPreferredWidth(5);
+        tblSanPham.getColumnModel().getColumn(6).setPreferredWidth(140);
+        tblSanPham.getColumnModel().getColumn(7).setPreferredWidth(3);
+        tblSanPham.getColumnModel().getColumn(8).setPreferredWidth(3);
+        tblSanPham.getColumnModel().getColumn(9).setPreferredWidth(3);
     }
 
     public void loadDataToTable() {
@@ -99,7 +100,7 @@ public class ProductForm extends javax.swing.JInternalFrame {
                         loaimay = "PC";
                     }
                     tblModel.addRow(new Object[]{
-                        i.getProductId(), i.getProductName(), i.getQuantity(), formatter.format(i.getImportPrice()) + "đ", formatter.format(i.getExportPrice()) + "đ",i.getCpuName(), i.getRam(), i.getStorage(), loaimay
+                        i.getProductId(), i.getProductName(), i.getQuantity(), formatter.format(i.getImportPrice()) + "đ", formatter.format(i.getExportPrice()) + "đ", i.getCpuName(),i.getGraphicsCard(), i.getRam(), i.getStorage(), loaimay
                     });
                 }
             }
@@ -404,11 +405,13 @@ public class ProductForm extends javax.swing.JInternalFrame {
                     
                     String boXuLi = excelRow.getCell(5).getStringCellValue();
                     
-                    String ram = excelRow.getCell(6).getStringCellValue();
-                    
-                    String boNho = excelRow.getCell(7).getStringCellValue();
-                    
-                    Computer mt = new Computer(maMay, tenMay, soLuong,boXuLi, ram,"", giaNhap, giaXuat,boNho, 1);
+                    String graphicsCard = excelRow.getCell(6).getStringCellValue();
+
+                    String ram = excelRow.getCell(7).getStringCellValue();
+
+                    String boNho = excelRow.getCell(8).getStringCellValue();
+
+                    Computer mt = new Computer(maMay, tenMay, soLuong, boXuLi, ram, graphicsCard, giaNhap, giaXuat, boNho, 1);
                     listAccExcel.add(mt);
                     DefaultTableModel table_acc = (DefaultTableModel) tblSanPham.getModel();
                     table_acc.setRowCount(0);
@@ -572,7 +575,7 @@ public class ProductForm extends javax.swing.JInternalFrame {
                     loaimay = "PC";
                 }
                 tblModel.addRow(new Object[]{
-                    i.getProductId(), i.getProductName(), i.getQuantity(), formatter.format(i.getImportPrice()) + "đ", formatter.format(i.getExportPrice()) + "đ", i.getCpuName(), i.getRam(), i.getStorage(), loaimay
+                    i.getProductId(), i.getProductName(), i.getQuantity(), formatter.format(i.getImportPrice()) + "đ", formatter.format(i.getExportPrice()) + "đ", i.getCpuName(), i.getGraphicsCard(), i.getRam(), i.getStorage(), loaimay
                 });
             }
         } catch (Exception e) {

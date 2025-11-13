@@ -4,9 +4,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class convertDate {
-    public static convertDate getInstance() {
-        return new convertDate();
+
+public class ConvertDate {
+    public static ConvertDate getInstance() {
+        return new ConvertDate();
     }
 
     public Date ChangeFrom(Date date) throws ParseException {

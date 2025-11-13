@@ -109,7 +109,7 @@ public class WritePDF {
         return url;
     }
 
-    public void writePhieuNhap(String mapn) {
+    public void writeReceipt(String mapn) {
         String url = "";
         try {
             fd.setTitle("Print Receipt");
@@ -143,12 +143,10 @@ public class WritePDF {
             document.add(para2);
             document.add(Chunk.NEWLINE);
 
-            //Tao table cho cac chi tiet cua hoa don
             PdfPTable pdfTable = new PdfPTable(5);
             pdfTable.setWidths(new float[]{10f, 30f, 15f, 5f, 15f});
             PdfPCell cell;
 
-            //Set headers cho table chi tiet
             pdfTable.addCell(new PdfPCell(new Phrase("Product ID", fontHeader)));
             pdfTable.addCell(new PdfPCell(new Phrase("Product Name", fontHeader)));
             pdfTable.addCell(new PdfPCell(new Phrase("Unit Price", fontHeader)));
@@ -160,7 +158,6 @@ public class WritePDF {
                 pdfTable.addCell(cell);
             }
 
-            //Truyen thong tin tung chi tiet vao table
             for (ReceiptDetail ctpn : ImportDetailDAO.getInstance().selectAll(mapn)) {
                 Computer mt = ComputerDAO.getInstance().selectById(ctpn.getProductId());
                 pdfTable.addCell(new PdfPCell(new Phrase(ctpn.getProductId(), fontData)));
@@ -194,7 +191,7 @@ public class WritePDF {
         }
     }
 
-    public void writePhieuXuat(String mapn) {
+    public void writeDelivery(String mapn) {
         String url = "";
         try {
             fd.setTitle("Print Delivery");

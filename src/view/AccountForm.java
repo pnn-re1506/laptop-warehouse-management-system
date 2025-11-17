@@ -35,9 +35,6 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class AccountForm extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form AccountForm
-     */
     private DefaultTableModel tblModel;
     private ArrayList<Account> accounts = AccountDAO.getInstance().selectAll();
 
@@ -493,13 +490,10 @@ public class AccountForm extends javax.swing.JInternalFrame {
 
     private void btnresetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnresetActionPerformed
         // TODO add your handling code here:
-        // Load dữ liệu mới nhất từ database
         accounts = AccountDAO.getInstance().selectAll();
         loadDataToTable(accounts);
-
-        // Clear search field để hiển thị tất cả dữ liệu
         txtSearch.setText("");
-        cbxLuachon.setSelectedIndex(0); // Set về "Tất cả"
+        cbxLuachon.setSelectedIndex(0); 
     }//GEN-LAST:event_btnresetActionPerformed
 
     private void txtSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyPressed

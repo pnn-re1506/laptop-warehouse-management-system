@@ -25,15 +25,8 @@ import model.Computer;
 import model.Supplier;
 import model.ImportReceipt;
 
-/**
- *
- * @author Tran Nhat Sinh
- */
 public class UpdateReceipt extends javax.swing.JDialog {
 
-    /**
-     * Creates new form UpdatePhieuNhap
-     */
     private DefaultTableModel tblModel;
     DecimalFormat formatter = new DecimalFormat("###,###,###");
     private ArrayList<Computer> allProduct;
@@ -393,7 +386,6 @@ public class UpdateReceipt extends javax.swing.JDialog {
 
     private void btnNhapHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhapHangActionPerformed
         // TODO add your handling code here:
-        // Set so luong san pham cua tung loai ve ban dau
         if (CTPhieu.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please select a product to import!","Warning", JOptionPane.WARNING_MESSAGE);
         } else {

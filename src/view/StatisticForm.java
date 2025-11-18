@@ -324,7 +324,7 @@ public class StatisticForm extends javax.swing.JInternalFrame {
                 .addGap(17, 17, 17))
         );
 
-        jTabbedPane1.addTab("Receipts", jPanel1);
+        jTabbedPane1.addTab("Statistic", jPanel1);
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
 

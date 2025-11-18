@@ -69,14 +69,14 @@ public class InventoryForm extends javax.swing.JInternalFrame {
             tblModel.setRowCount(0);
             for (Computer i : armt) {
                 if (i.getStatus() == 1) {
-                    String loaimay;
+                    String type;
                     if (LaptopDAO.getInstance().isLaptop(i.getProductId()) == true) {
-                        loaimay = "Laptop";
+                        type = "Laptop";
                     } else {
-                        loaimay = "PC";
+                        type = "PC";
                     }
                     tblModel.addRow(new Object[]{
-                        i.getProductId(), i.getProductName(), i.getQuantity(),i.getCpuName(),i.getGraphicsCard() ,i.getRam(), i.getStorage(), loaimay
+                        i.getProductId(), i.getProductName(), i.getQuantity(),i.getCpuName(),i.getGraphicsCard() ,i.getRam(), i.getStorage(), type
                     });
                 }
             }
@@ -270,7 +270,7 @@ public class InventoryForm extends javax.swing.JInternalFrame {
         if (tblSanPham.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(this, "Please select a product to delete!");
         } else {
-            xoaMayTinhSelect();
+            deleteComputerSelect();
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
@@ -358,7 +358,7 @@ public class InventoryForm extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTextFieldSearchKeyPressed
 
     public boolean checklap() {
-        if (LaptopDAO.getInstance().isLaptop(getMayTinhSelect().getProductId()) == true) {
+        if (LaptopDAO.getInstance().isLaptop(getComputerSelect().getProductId()) == true) {
             return true;
         } else {
             return false;
@@ -366,27 +366,27 @@ public class InventoryForm extends javax.swing.JInternalFrame {
     }
 
     public Laptop getDetailLapTop() {
-        Laptop a = LaptopDAO.getInstance().selectById(getMayTinhSelect().getProductId());
+        Laptop a = LaptopDAO.getInstance().selectById(getComputerSelect().getProductId());
         return a;
     }
 
     public PC getDetailPC() {
-        PC a = PCDAO.getInstance().selectById(getMayTinhSelect().getProductId());
+        PC a = PCDAO.getInstance().selectById(getComputerSelect().getProductId());
         return a;
     }
 
-    public void xoaMayTinhSelect() {
+    public void deleteComputerSelect() {
         DefaultTableModel table_acc = (DefaultTableModel) tblSanPham.getModel();
         int i_row = tblSanPham.getSelectedRow();
-        int luaChon = JOptionPane.showConfirmDialog(this, "Do you want to delete this product?", "Delete Product",
+        int choice = JOptionPane.showConfirmDialog(this, "Do you want to delete this product?", "Delete Product",
                 JOptionPane.YES_NO_OPTION);
-        if (luaChon == JOptionPane.YES_OPTION) {
-            ComputerDAO.getInstance().delete(getMayTinhSelect());
+        if (choice == JOptionPane.YES_OPTION) {
+            ComputerDAO.getInstance().delete(getComputerSelect());
             table_acc.removeRow(i_row);
         }
     }
 
-    public Computer getMayTinhSelect() {
+    public Computer getComputerSelect() {
         int i_row = tblSanPham.getSelectedRow();
         Computer acc = ComputerDAO.getInstance().selectAll().get(i_row);
         return acc;
@@ -397,14 +397,14 @@ public class InventoryForm extends javax.swing.JInternalFrame {
             tblModel.setRowCount(0);
             for (Computer i : result) {
                 if (i.getStatus() == 1) {
-                    String loaimay;
+                    String type;
                     if (LaptopDAO.getInstance().isLaptop(i.getProductId()) == true) {
-                        loaimay = "Laptop";
+                        type = "Laptop";
                     } else {
-                        loaimay = "PC";
+                        type = "PC";
                     }
                     tblModel.addRow(new Object[]{
-                        i.getProductId(), i.getProductName(), i.getQuantity(), i.getCpuName(), i.getRam(), i.getStorage(), loaimay
+                        i.getProductId(), i.getProductName(), i.getQuantity(), i.getCpuName(), i.getRam(), i.getStorage(), type
                     });
                 }
             }
@@ -412,18 +412,18 @@ public class InventoryForm extends javax.swing.JInternalFrame {
         }
     }
 
-    public ArrayList<Computer> searchFn(String luaChon, String content) {
+    public ArrayList<Computer> searchFn(String choice, String content) {
         ArrayList<Computer> result = new ArrayList<>();
         SearchProduct searchPr = new SearchProduct();
-        switch (luaChon) {
+        switch (choice) {
             case "All":
                 result = searchPr.searchAll(content);
                 break;
             case "Product ID":
-                result = searchPr.searchProductId(content);
+                result = searchPr.searchID(content);
                 break;
             case "Product Name":
-                result = searchPr.searchProductName(content);
+                result = searchPr.searchName(content);
                 break;
             case "Quantity":
                 result = searchPr.searchQuantity(content);

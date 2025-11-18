@@ -15,9 +15,6 @@ import model.PC;
 
 public class UpdateProduct extends javax.swing.JDialog {
 
-    /**
-     * Creates new form ThemSP
-     */
     private ProductForm owner;
     DecimalFormat formatterE = new DecimalFormat("0");
     
@@ -390,25 +387,25 @@ public class UpdateProduct extends javax.swing.JDialog {
 
     private void btnAddProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddProductActionPerformed
         // TODO add your handling code here:
-        String maMay = txtMaSanPham.getText();
-        String tenMay = txtTenSanPham.getText();
-        int soluong = 0;
-        double giaNhap = 0;
-        double giaXuat = 0;
+        String id = txtMaSanPham.getText();
+        String name = txtTenSanPham.getText();
+        int quantity = 0;
+        double imPrice = 0;
+        double exPrice = 0;
         try {
-            soluong = Integer.parseInt(txtSoLuong.getText());
+            quantity = Integer.parseInt(txtSoLuong.getText());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Please enter quantity in numeric format!");
         }
         try {
-            giaNhap = Double.parseDouble(txtGiaNhap.getText());
-            giaXuat = Double.parseDouble(txtGiaXuat.getText());
-            if (giaNhap <= 0 || giaXuat <= 0) {
+            imPrice = Double.parseDouble(txtGiaNhap.getText());
+            exPrice = Double.parseDouble(txtGiaXuat.getText());
+            if (imPrice <= 0 || exPrice <= 0) {
             JOptionPane.showMessageDialog(this, "Price must be greater than 0!");
             return;
         }
     
-            if (giaXuat <= giaNhap) {
+            if (exPrice <= imPrice) {
             JOptionPane.showMessageDialog(this, "Export price must be greater than import price!");
             return;
         }
@@ -422,16 +419,16 @@ public class UpdateProduct extends javax.swing.JDialog {
         String gpu = txtGPU.getText();
 
         if (cbxloaisp.getSelectedItem().equals("Laptop")) {
-            double kichthuocman = 0;
+            double screen = 0;
             try {
-                kichthuocman = Double.parseDouble(txtKichThuocMan.getText());
+                screen = Double.parseDouble(txtKichThuocMan.getText());
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Please enter screen size in numeric format!");
             }
-            if (maMay.equals("") || tenMay.equals("") || cpu.equals("") || ram.equals("") || rom.equals("") || gpu.equals("")) {
+            if (id.equals("") || name.equals("") || cpu.equals("") || ram.equals("") || rom.equals("") || gpu.equals("")) {
                 JOptionPane.showMessageDialog(this, "Please fill in all required information!");
             } else {
-                Laptop lp = new Laptop(maMay, tenMay, soluong, cpu, ram, gpu, giaNhap, giaXuat, rom, 1, kichthuocman);
+                Laptop lp = new Laptop(id, name, quantity, cpu, ram, gpu, imPrice, exPrice, rom, 1, screen);
                 try {
                     LaptopDAO.getInstance().update(lp);
                     this.dispose();
@@ -445,10 +442,10 @@ public class UpdateProduct extends javax.swing.JDialog {
         if (cbxloaisp.getSelectedItem().equals("PC")) {
             String mainboard = txtMainBoard.getText();
             
-            if (maMay.equals("") || tenMay.equals("") || cpu.equals("") || ram.equals("") || rom.equals("") || gpu.equals("") || mainboard.equals("")) {
+            if (id.equals("") || name.equals("") || cpu.equals("") || ram.equals("") || rom.equals("") || gpu.equals("") || mainboard.equals("")) {
                 JOptionPane.showMessageDialog(this, "Please fill in all required information!");
             } else {
-                PC pc = new PC(maMay, tenMay, soluong, cpu, ram, gpu, giaNhap, giaXuat, rom, 1, mainboard);
+                PC pc = new PC(id, name, quantity, cpu, ram, gpu, imPrice, exPrice, rom, 1, mainboard);
                 System.out.println(pc);
                 PCDAO.getInstance().update(pc);
                 this.dispose();

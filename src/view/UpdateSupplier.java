@@ -34,7 +34,7 @@ public class UpdateSupplier extends javax.swing.JDialog {
     }
     
     private void displayInfo() {
-        Supplier a = parent.getNhaCungCapSelect();
+        Supplier a = parent.getSupplierSelect();
         txtMaNhaCungCap.setText(a.getSupplierId());
         txtDiaChi.setText(a.getAddress());
         txtTenNhaCungCap.setText(a.getSupplierName());

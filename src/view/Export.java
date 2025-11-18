@@ -15,9 +15,7 @@ import model.Account;
 
 public class Export extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Navbar
-     */
+    
     Color DefaultColor, ClickedColor;
     private Account currentAcc;
 
@@ -36,9 +34,9 @@ public class Export extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         this.currentAcc = t;
-        ExportForm xh = new ExportForm();
-        xh.setNguoiTao(t.getUserName());
-        MainContent.add(xh).setVisible(true);
+        ExportForm ex = new ExportForm();
+        ex.setCreatedBy(t.getUserName());
+        MainContent.add(ex).setVisible(true);
         DefaultColor = new Color(0, 102, 153);
         ClickedColor = new Color(0, 102, 204);
         NavbarMenu.setBackground(DefaultColor);
@@ -263,17 +261,17 @@ public class Export extends javax.swing.JFrame {
 
     private void XuatHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_XuatHangMouseClicked
         // TODO add your handling code here:
-        ExportForm xh = new ExportForm();
-        xh.setNguoiTao(this.currentAcc.getUserName());
+        ExportForm ex = new ExportForm();
+        ex.setCreatedBy(this.currentAcc.getUserName());
         MainContent.removeAll();
-        MainContent.add(xh).setVisible(true);
+        MainContent.add(ex).setVisible(true);
     }//GEN-LAST:event_XuatHangMouseClicked
 
     private void PhieuXuatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PhieuXuatMouseClicked
         // TODO add your handling code here:
-        DeliveryForm px = new DeliveryForm(this.getCurrentAcc());
+        DeliveryForm ex = new DeliveryForm(this.getCurrentAcc());
         MainContent.removeAll();
-        MainContent.add(px).setVisible(true);
+        MainContent.add(ex).setVisible(true);
     }//GEN-LAST:event_PhieuXuatMouseClicked
 
     private void DangXuatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DangXuatMouseClicked

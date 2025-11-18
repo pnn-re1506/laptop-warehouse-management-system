@@ -5,11 +5,12 @@ import model.Computer;
 
 import java.util.ArrayList;
 
-public class SearchProduct {
+public class SearchProduct extends Searching<Computer> {
     public static SearchProduct getInstance() {
         return new SearchProduct();
     }
 
+    @Override
     public ArrayList<Computer> searchAll(String text) {
         ArrayList<Computer> result = new ArrayList<>();
         ArrayList<Computer> armt = ComputerDAO.getInstance().selectAllExist();
@@ -26,7 +27,8 @@ public class SearchProduct {
         return result;
     }
 
-    public ArrayList<Computer> searchProductId(String text) {
+    @Override
+    public ArrayList<Computer> searchID(String text) {
         ArrayList<Computer> result = new ArrayList<>();
         ArrayList<Computer> armt = ComputerDAO.getInstance().selectAllExist();
         for (var mt : armt) {
@@ -39,7 +41,8 @@ public class SearchProduct {
         return result;
     }
 
-    public ArrayList<Computer> searchProductName(String text) {
+    @Override
+    public ArrayList<Computer> searchName(String text) {
         ArrayList<Computer> result = new ArrayList<>();
         ArrayList<Computer> armt = ComputerDAO.getInstance().selectAllExist();
         for (var mt : armt) {

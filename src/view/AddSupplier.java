@@ -147,19 +147,19 @@ public class AddSupplier extends javax.swing.JDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         try {
-            String maNcc = txtMaNhaCungCap.getText().trim();
-            String tenNcc = txtTenNhaCungCap.getText().trim();
-            String sdtNcc = txtphone1.getText().trim();
-            String diachiNcc = txtDiaChi.getText().trim();
-            if (maNcc.equals("") || tenNcc.equals("") || sdtNcc.equals("") || diachiNcc.equals("")) {
+            String id = txtMaNhaCungCap.getText().trim();
+            String name = txtTenNhaCungCap.getText().trim();
+            String phone = txtphone1.getText().trim();
+            String add = txtDiaChi.getText().trim();
+            if (id.equals("") || name.equals("") || phone.equals("") || add.equals("")) {
                 JOptionPane.showMessageDialog(this, "Please fill in all required fields!", "Warning!", JOptionPane.WARNING_MESSAGE);
             } else {
-                if (SupplierDAO.getInstance().selectById(maNcc) == null) {
+                if (SupplierDAO.getInstance().selectById(id) == null) {
                     Supplier ncc = new Supplier();
-                    ncc.setSupplierId(maNcc);
-                    ncc.setSupplierName(tenNcc);
-                    ncc.setPhone(sdtNcc);
-                    ncc.setAddress(diachiNcc);
+                    ncc.setSupplierId(id);
+                    ncc.setSupplierName(name);
+                    ncc.setPhone(phone);
+                    ncc.setAddress(add);
                     SupplierDAO.getInstance().insert(ncc);
                     JOptionPane.showMessageDialog(this, "Added successfully!");
                     parent.loadDataToTable(SupplierDAO.getInstance().selectAll());

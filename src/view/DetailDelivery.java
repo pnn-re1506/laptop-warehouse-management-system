@@ -25,11 +25,11 @@ public class DetailDelivery extends javax.swing.JDialog {
         this.parent = (DeliveryForm) parent;
         initComponents();
         setLocationRelativeTo(null);
-        ExportReceipt pn = this.parent.getPhieuXuatSelect();
-        labelMaPhieu.setText(pn.getReceiptID());
-        labelNguoiTao.setText(AccountDAO.getInstance().selectById(pn.getCreatedBy()).getFullName());
-        labelTongTien.setText(this.parent.getFormatter().format(pn.getTotalAmount()) + "đ");
-        labelThoiGianTao.setText(this.parent.getFormatDate().format(pn.getCreatedDate()));
+        ExportReceipt ex = this.parent.getExReceiptSelect();
+        labelMaPhieu.setText(ex.getReceiptID());
+        labelNguoiTao.setText(AccountDAO.getInstance().selectById(ex.getCreatedBy()).getFullName());
+        labelTongTien.setText(this.parent.getFormatter().format(ex.getTotalAmount()) + "đ");
+        labelThoiGianTao.setText(this.parent.getFormatDate().format(ex.getCreatedDate()));
         loadDataToTableProduct();
         setWidthTable();
     }
@@ -42,17 +42,17 @@ public class DetailDelivery extends javax.swing.JDialog {
 
     public void loadDataToTableProduct() {
         try {
-            ArrayList<ReceiptDetail> CTPhieu = ExportDetailDAO.getInstance().selectAll(this.parent.getPhieuXuatSelect().getReceiptID());
+            ArrayList<ReceiptDetail> DetailReceipt = ExportDetailDAO.getInstance().selectAll(this.parent.getExReceiptSelect().getReceiptID());
             DefaultTableModel tblCTPhieumd = (DefaultTableModel) tblChiTietPhieu.getModel();
             tblCTPhieumd.setRowCount(0);
-            for (int i = 0; i < CTPhieu.size(); i++) {
+            for (int i = 0; i < DetailReceipt.size(); i++) {
                 tblCTPhieumd.addRow(new Object[]{
                     i + 1, 
-                    CTPhieu.get(i).getProductId(),
-                    ComputerDAO.getInstance().selectById(CTPhieu.get(i).getProductId()).getProductName(),
-                    CTPhieu.get(i).getQuantity(),
-                    parent.getFormatter().format(CTPhieu.get(i).getUnitPrice()) + "đ",
-                    parent.getFormatter().format(CTPhieu.get(i).getUnitPrice() * CTPhieu.get(i).getQuantity()) + "đ"
+                    DetailReceipt.get(i).getProductId(),
+                    ComputerDAO.getInstance().selectById(DetailReceipt.get(i).getProductId()).getProductName(),
+                    DetailReceipt.get(i).getQuantity(),
+                    parent.getFormatter().format(DetailReceipt.get(i).getUnitPrice()) + "đ",
+                    parent.getFormatter().format(DetailReceipt.get(i).getUnitPrice() * DetailReceipt.get(i).getQuantity()) + "đ"
                 });
             }
         } catch (Exception e) {
@@ -224,7 +224,7 @@ public class DetailDelivery extends javax.swing.JDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         WritePDF writepdf = new WritePDF();
-        writepdf.writeDelivery(this.parent.getPhieuXuatSelect().getReceiptID());
+        writepdf.writeDelivery(this.parent.getExReceiptSelect().getReceiptID());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

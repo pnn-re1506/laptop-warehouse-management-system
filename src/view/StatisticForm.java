@@ -565,18 +565,18 @@ public class StatisticForm extends javax.swing.JInternalFrame {
      ///ACCOUNT
     private void jTextFieldSearch1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldSearch1KeyReleased
         // TODO add your handling code here:
-        String luachon = (String) jComboBoxLuaChon1.getSelectedItem();
+        String choice = (String) jComboBoxLuaChon1.getSelectedItem();
         String searchContent = jTextFieldSearch1.getText();
         ArrayList<Account> result = new ArrayList<>();
-        switch (luachon) {
+        switch (choice) {
             case "All":
-                result = SearchAccount.getInstance().searchAllAcc(searchContent);
+                result = SearchAccount.getInstance().searchAll(searchContent);
                 break;
             case "FullName":
-                result = SearchAccount.getInstance().searchFullName(searchContent);
+                result = SearchAccount.getInstance().searchName(searchContent);
                 break;
             case "UserName":
-                result = SearchAccount.getInstance().searchUserName(searchContent);
+                result = SearchAccount.getInstance().searchID(searchContent);
                 break;
             case "Role":
                 result = SearchAccount.getInstance().searchRole(searchContent);
@@ -592,9 +592,9 @@ public class StatisticForm extends javax.swing.JInternalFrame {
             if (tblAccount.getSelectedRow() == -1) {
                 JOptionPane.showMessageDialog(this, "Please select an account!");
             } else {
-                DetailStatisticAcc tk;
-                tk = new DetailStatisticAcc(this, (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this), rootPaneCheckingEnabled);
-                tk.setVisible(true);
+                DetailStatisticAcc acc;
+                acc = new DetailStatisticAcc(this, (JFrame) javax.swing.SwingUtilities.getWindowAncestor(this), rootPaneCheckingEnabled);
+                acc.setVisible(true);
             }
         }
     }//GEN-LAST:event_tblAccountMouseClicked
@@ -602,7 +602,7 @@ public class StatisticForm extends javax.swing.JInternalFrame {
     private void txtNamePrKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNamePrKeyReleased
         try {
             // TODO add your handling code here:
-            filterThongKeSanPham();
+            filterProductStatistic();
         } catch (ParseException ex) {
             Logger.getLogger(StatisticForm.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -631,7 +631,7 @@ public class StatisticForm extends javax.swing.JInternalFrame {
     private void jDateChooserToPrPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateChooserToPrPropertyChange
         try {
             // TODO add your handling code here:
-            filterThongKeSanPham();
+            filterProductStatistic();
         } catch (ParseException ex) {
             Logger.getLogger(StatisticForm.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -644,7 +644,7 @@ public class StatisticForm extends javax.swing.JInternalFrame {
     private void jDateChooserFromPrPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateChooserFromPrPropertyChange
         try {
             // TODO add your handling code here:
-            filterThongKeSanPham();
+            filterProductStatistic();
         } catch (ParseException ex) {
             Logger.getLogger(StatisticForm.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -661,9 +661,9 @@ public class StatisticForm extends javax.swing.JInternalFrame {
         Date from = jDateChooserFromPr.getDate();
         Date to = jDateChooserToPr.getDate();
         ArrayList<ImportReceipt> armt = ImportDAO.getInstance().selectAll();
-        for (var phieu : armt) {
-            if (checkDate(phieu.getCreatedDate(), from, to)) {
-                result.add(phieu);
+        for (var receipt : armt) {
+            if (checkDate(receipt.getCreatedDate(), from, to)) {
+                result.add(receipt);
             }
 
         }
@@ -683,7 +683,7 @@ public class StatisticForm extends javax.swing.JInternalFrame {
         }
     }
 
-    public String getMaAcc() {
+    public String getAccID() {
         return tblAccount.getValueAt(tblAccount.getSelectedRow(), 2).toString();
     }
 
@@ -729,8 +729,8 @@ public class StatisticForm extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
    
-    public void filterThongKeSanPham() throws ParseException {
-        ArrayList<ProductStatistics> thongKe = new ArrayList<>();
+    public void filterProductStatistic() throws ParseException {
+        ArrayList<ProductStatistics> stas = new ArrayList<>();
         if (jDateChooserFromPr.getDate() != null || jDateChooserToPr.getDate() != null) {
             Date from = new Date();
             Date to = new Date();
@@ -750,24 +750,24 @@ public class StatisticForm extends javax.swing.JInternalFrame {
                     jDateChooserToPr.setCalendar(null);
                 }
             }
-            thongKe = StatisticsDAO.getInstance().getStatistics(from, to);
+            stas = StatisticsDAO.getInstance().getStatistics(from, to);
 
         } else {
-            thongKe = StatisticsDAO.getInstance().getStatistics();
+            stas = StatisticsDAO.getInstance().getStatistics();
         }
         if (!txtNamePr.getText().equals("")) {
-            thongKe = searchTenSanPhamThongKe(thongKe, txtNamePr.getText());
+            stas = searchProductNameStatistic(stas, txtNamePr.getText());
         }
-        loadDataToTableThongKeProduct(thongKe);
+        loadDataToTableThongKeProduct(stas);
     }
 
-    private void loadDataToTableThongKeProduct(ArrayList<ProductStatistics> thongKe) {
+    private void loadDataToTableThongKeProduct(ArrayList<ProductStatistics> stas) {
         try {
             DefaultTableModel tblModelAcc = (DefaultTableModel) tblThongKeProduct.getModel();
             tblModelAcc.setRowCount(0);
-            for (int i = 0; i < thongKe.size(); i++) {
+            for (int i = 0; i < stas.size(); i++) {
                 tblModelAcc.addRow(new Object[]{
-                    (i + 1), thongKe.get(i).getProductId(), thongKe.get(i).getProductName(), thongKe.get(i).getImportQuantity(), thongKe.get(i).getExportQuantity()
+                    (i + 1), stas.get(i).getProductId(), stas.get(i).getProductName(), stas.get(i).getImportQuantity(), stas.get(i).getExportQuantity()
                 });
             }
             tblThongKeProduct.getColumnModel().getColumn(2).setPreferredWidth(400);
@@ -775,7 +775,7 @@ public class StatisticForm extends javax.swing.JInternalFrame {
         }
     }
 
-    private ArrayList<ProductStatistics> searchTenSanPhamThongKe(ArrayList<ProductStatistics> arr, String name) {
+    private ArrayList<ProductStatistics> searchProductNameStatistic(ArrayList<ProductStatistics> arr, String name) {
         ArrayList<ProductStatistics> result = new ArrayList<>();
         for (ProductStatistics i : arr) {
             if (i.getProductId().toLowerCase().contains(name.toLowerCase()) || i.getProductName().toLowerCase().contains(name.toLowerCase())) {

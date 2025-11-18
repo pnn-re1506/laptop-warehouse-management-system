@@ -28,10 +28,10 @@ public class DetailStatisticAcc extends javax.swing.JDialog {
         this.pa = (StatisticForm) parent;
         initComponents();
         setLocationRelativeTo(null);
-        String maAcc = pa.getMaAcc();
-        Account ac = AccountDAO.getInstance().selectById(maAcc);
+        String accID = pa.getAccID();
+        Account ac = AccountDAO.getInstance().selectById(accID);
         labelNguoiTao.setText(ac.getFullName());
-        loadDataToTablePhieu(maAcc);
+        loadDataToTablePhieu(accID);
         setWidthTable();
     }
 
@@ -41,12 +41,12 @@ public class DetailStatisticAcc extends javax.swing.JDialog {
         tblChiTietPhieu.getColumnModel().getColumn(2).setPreferredWidth(250);
     }
 
-    public void loadDataToTablePhieu(String maAcc) {
+    public void loadDataToTablePhieu(String accId) {
         DefaultTableModel tblAcc = (DefaultTableModel) tblChiTietPhieu.getModel();
         ArrayList<Receipt> result = new ArrayList<Receipt>();
-        for (Receipt phieu : ImportDAO.getInstance().selectAllAccount(maAcc)) {
-            if (phieu.getCreatedBy().equals(maAcc)) {
-                result.add(phieu);
+        for (Receipt receipt : ImportDAO.getInstance().selectAllAccount(accId)) {
+            if (receipt.getCreatedBy().equals(accId)) {
+                result.add(receipt);
             }
         }
         for (int i=0;i<result.size();i++) {

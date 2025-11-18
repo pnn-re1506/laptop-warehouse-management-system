@@ -17,9 +17,6 @@ import model.Account;
 
 public class Import extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Navbar
-     */
     Color DefaultColor, ClickedColor;
     private Account currentAcc;
 
@@ -39,10 +36,10 @@ public class Import extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         this.currentAcc = t;
-        ImportForm nhaphang = new ImportForm();
-        nhaphang.setNguoiNhapHang(this.currentAcc.getUserName());
+        ImportForm imp = new ImportForm();
+        imp.setImportUser(this.currentAcc.getUserName());
         MainContent.removeAll();
-        MainContent.add(nhaphang).setVisible(true);
+        MainContent.add(imp).setVisible(true);
         DefaultColor = new Color(0, 102, 153);
         ClickedColor = new Color(0, 102, 204);
         NavbarMenu.setBackground(DefaultColor);
@@ -265,17 +262,17 @@ public class Import extends javax.swing.JFrame {
 
     private void NhapHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NhapHangMouseClicked
         // TODO add your handling code here:
-        ImportForm nhaphang = new ImportForm();
-        nhaphang.setNguoiNhapHang(this.currentAcc.getUserName());
+        ImportForm imp = new ImportForm();
+        imp.setImportUser(this.currentAcc.getUserName());
         MainContent.removeAll();
-        MainContent.add(nhaphang).setVisible(true);
+        MainContent.add(imp).setVisible(true);
     }//GEN-LAST:event_NhapHangMouseClicked
 
     private void PhieuNhapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PhieuNhapMouseClicked
         // TODO add your handling code here:
-        ReceiptForm pn = new ReceiptForm(this.getCurrentAcc());
+        ReceiptForm im = new ReceiptForm(this.getCurrentAcc());
         MainContent.removeAll();
-        MainContent.add(pn).setVisible(true);
+        MainContent.add(im).setVisible(true);
     }//GEN-LAST:event_PhieuNhapMouseClicked
 
     private void DangXuatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DangXuatMouseClicked

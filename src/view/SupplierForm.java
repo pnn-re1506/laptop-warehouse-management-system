@@ -32,9 +32,6 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class SupplierForm extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form NhaCungCapForm
-     */
     private DefaultTableModel tblModel;
     private static ArrayList<Supplier> armt;
 
@@ -59,10 +56,10 @@ public class SupplierForm extends javax.swing.JInternalFrame {
         tblNCC.getColumnModel().getColumn(3).setPreferredWidth(350);
     }
 
-    public void loadDataToTable(ArrayList<Supplier> ncc) {
+    public void loadDataToTable(ArrayList<Supplier> supplier) {
         try {
             tblModel.setRowCount(0);
-            for (Supplier i : ncc) {
+            for (Supplier i : supplier) {
                 tblModel.addRow(new Object[]{
                     i.getSupplierId(), i.getSupplierName(), i.getPhone(), i.getAddress()
                 });
@@ -71,10 +68,10 @@ public class SupplierForm extends javax.swing.JInternalFrame {
         }
     }
 
-    public Supplier getNhaCungCapSelect() {
+    public Supplier getSupplierSelect() {
         int i_row = tblNCC.getSelectedRow();
-        Supplier ncc = SupplierDAO.getInstance().selectAll().get(i_row);
-        return ncc;
+        Supplier supplier = SupplierDAO.getInstance().selectAll().get(i_row);
+        return supplier;
     }
 
     /**
@@ -346,7 +343,7 @@ public class SupplierForm extends javax.swing.JInternalFrame {
         } else {
             int output = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this supplier?", "Confirm Delete", JOptionPane.YES_NO_OPTION);
             if (output == JOptionPane.YES_OPTION) {
-                SupplierDAO.getInstance().delete(getNhaCungCapSelect());
+                SupplierDAO.getInstance().delete(getSupplierSelect());
                 JOptionPane.showMessageDialog(this, "Supplier deleted successfully!");
                 loadDataToTable(SupplierDAO.getInstance().selectAll());
             }
@@ -412,11 +409,11 @@ public class SupplierForm extends javax.swing.JInternalFrame {
                 XSSFSheet excelSheet = excelJTableImport.getSheetAt(0);
                 for (int row = 1; row <= excelSheet.getLastRowNum(); row++) {
                     XSSFRow excelRow = excelSheet.getRow(row);
-                    String maNhaCungCap = excelRow.getCell(0).getStringCellValue();
-                    String tenNhaCungCap = excelRow.getCell(1).getStringCellValue();
-                    String sdt = excelRow.getCell(2).getStringCellValue();
-                    String diaChi = excelRow.getCell(3).getStringCellValue();
-                    Supplier acc = new Supplier(maNhaCungCap, tenNhaCungCap, sdt, diaChi);
+                    String id = excelRow.getCell(0).getStringCellValue();
+                    String name = excelRow.getCell(1).getStringCellValue();
+                    String phone = excelRow.getCell(2).getStringCellValue();
+                    String add = excelRow.getCell(3).getStringCellValue();
+                    Supplier acc = new Supplier(id, name, phone, add);
                     listAccExcel.add(acc);
                     DefaultTableModel table_acc = (DefaultTableModel) tblNCC.getModel();
                     table_acc.setRowCount(0);
@@ -430,8 +427,8 @@ public class SupplierForm extends javax.swing.JInternalFrame {
         }
         try {
             int k = 0;
-            for (Supplier nhaCungCap : listAccExcel) {
-                k = SupplierDAO.getInstance().insert(nhaCungCap);
+            for (Supplier supplier : listAccExcel) {
+                k = SupplierDAO.getInstance().insert(supplier);
             }
             if(k!=0) {
                 JOptionPane.showMessageDialog(this, "Import Successfully!");
@@ -457,18 +454,18 @@ public class SupplierForm extends javax.swing.JInternalFrame {
 
     private void txtSearchFormKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchFormKeyReleased
         // TODO add your handling code here:
-        String luachon = (String) cbxlLuaChon.getSelectedItem();
+        String choice = (String) cbxlLuaChon.getSelectedItem();
         String searchContent = txtSearchForm.getText();
         ArrayList<Supplier> result = new ArrayList<>();
-        switch (luachon) {
+        switch (choice) {
             case "All":
                 result = SearchSupplier.getInstance().searchAll(searchContent);
                 break;
             case "Supplier ID":
-                result = SearchSupplier.getInstance().searchSupplierId(searchContent);
+                result = SearchSupplier.getInstance().searchID(searchContent);
                 break;
             case "Supplier Name":
-                result = SearchSupplier.getInstance().searchSupplierName(searchContent);
+                result = SearchSupplier.getInstance().searchName(searchContent);
                 break;
             case "Address":
                 result = SearchSupplier.getInstance().searchAddress(searchContent);

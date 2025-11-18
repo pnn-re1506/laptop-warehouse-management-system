@@ -5,11 +5,12 @@ import model.Supplier;
 
 import java.util.ArrayList;
 
-public class SearchSupplier {
+public class SearchSupplier extends Searching<Supplier> {
     public static SearchSupplier getInstance() {
         return new SearchSupplier();
     }
 
+    @Override
     public ArrayList<Supplier> searchAll(String text) {
         ArrayList<Supplier> result = new ArrayList<>();
         ArrayList<Supplier> armt = SupplierDAO.getInstance().selectAll();
@@ -24,7 +25,8 @@ public class SearchSupplier {
         return result;
     }
 
-    public ArrayList<Supplier> searchSupplierName(String text) {
+    @Override
+    public ArrayList<Supplier> searchName(String text) {
         ArrayList<Supplier> result = new ArrayList<>();
         ArrayList<Supplier> armt = SupplierDAO.getInstance().selectAll();
         for (var ncc : armt) {
@@ -35,7 +37,8 @@ public class SearchSupplier {
         return result;
     }
 
-    public ArrayList<Supplier> searchSupplierId(String text) {
+    @Override
+    public ArrayList<Supplier> searchID(String text) {
         ArrayList<Supplier> result = new ArrayList<>();
         ArrayList<Supplier> armt = SupplierDAO.getInstance().selectAll();
         for (var ncc : armt) {

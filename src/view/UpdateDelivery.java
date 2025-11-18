@@ -22,21 +22,16 @@ import model.Computer;
 import model.Supplier;
 import model.ExportReceipt;
 
-/**
- *
- * @author Tran Nhat Sinh
- */
+
 public class UpdateDelivery extends javax.swing.JDialog {
 
-    /**
-     * Creates new form UpdatePhieuXuat
-     */
+
     private DefaultTableModel tblModel;
     DecimalFormat formatter = new DecimalFormat("###,###,###");
     private ArrayList<Computer> allProduct;
-    private ExportReceipt phieuxuat;
-    private ArrayList<ReceiptDetail> CTPhieu;
-    private ArrayList<ReceiptDetail> CTPhieuOld;
+    private ExportReceipt exportreceipt;
+    private ArrayList<ReceiptDetail> DetailtReceipt;
+    private ArrayList<ReceiptDetail> DetailtReceiptOld;
     private DeliveryForm parent;
     private static final ArrayList<Supplier> arrNcc = SupplierDAO.getInstance().selectAll();
 
@@ -48,9 +43,9 @@ public class UpdateDelivery extends javax.swing.JDialog {
         // Lay thong tin 
         allProduct = ComputerDAO.getInstance().selectAllExist();
         this.parent = (DeliveryForm) parent;
-        this.phieuxuat = this.parent.getPhieuXuatSelect();
-        CTPhieu = ExportDetailDAO.getInstance().selectAll(phieuxuat.getReceiptID());
-        CTPhieuOld = ExportDetailDAO.getInstance().selectAll(phieuxuat.getReceiptID());
+        this.exportreceipt = this.parent.getExReceiptSelect();
+        DetailtReceipt = ExportDetailDAO.getInstance().selectAll(exportreceipt.getReceiptID());
+        DetailtReceiptOld = ExportDetailDAO.getInstance().selectAll(exportreceipt.getReceiptID());
         // Hien thi thong tin
         initTable();
         loadDataToTableProduct(allProduct);
@@ -65,9 +60,9 @@ public class UpdateDelivery extends javax.swing.JDialog {
     }
 
     private void displayInfo() {
-        txtMaPhieu.setText(phieuxuat.getReceiptID());
-        textTongTien.setText(formatter.format(phieuxuat.getTotalAmount()) + "đ");
-        txtNguoiTao.setText(AccountDAO.getInstance().selectById(phieuxuat.getCreatedBy()).getUserName());
+        txtMaPhieu.setText(exportreceipt.getReceiptID());
+        textTongTien.setText(formatter.format(exportreceipt.getTotalAmount()) + "đ");
+        txtNguoiTao.setText(AccountDAO.getInstance().selectById(exportreceipt.getCreatedBy()).getUserName());
     }
 
     public final void initTable() {
@@ -96,26 +91,26 @@ public class UpdateDelivery extends javax.swing.JDialog {
         }
     }
 
-    public double tinhTongTien() {
+    public double calculateTotalPrice() {
         double tt = 0;
-        for (var i : CTPhieu) {
+        for (var i : DetailtReceipt) {
             tt += i.getUnitPrice() * i.getQuantity();
         }
         return tt;
     }
 
-    public Computer findMayTinh(String maMay) {
+    public Computer findComputer(String id) {
         for (var i : allProduct) {
-            if (maMay.equals(i.getProductId())) {
+            if (id.equals(i.getProductId())) {
                 return i;
             }
         }
         return null;
     }
 
-    public ReceiptDetail findCTPhieu(String maMay) {
-        for (var i : CTPhieu) {
-            if (maMay.equals(i.getProductId())) {
+    public ReceiptDetail findDetailReceipt(String id) {
+        for (var i : DetailtReceipt) {
+            if (id.equals(i.getProductId())) {
                 return i;
             }
         }
@@ -127,9 +122,9 @@ public class UpdateDelivery extends javax.swing.JDialog {
             DefaultTableModel tblNhapHangmd = (DefaultTableModel) tblNhapHang.getModel();
             tblNhapHangmd.setRowCount(0);
 
-            for (int i = 0; i < CTPhieu.size(); i++) {
+            for (int i = 0; i < DetailtReceipt.size(); i++) {
                 tblNhapHangmd.addRow(new Object[]{
-                    i + 1, CTPhieu.get(i).getProductId(), findMayTinh(CTPhieu.get(i).getProductId()).getProductName(), CTPhieu.get(i).getQuantity(), formatter.format(CTPhieu.get(i).getUnitPrice()) + "đ"
+                    i + 1, DetailtReceipt.get(i).getProductId(), findComputer(DetailtReceipt.get(i).getProductId()).getProductName(), DetailtReceipt.get(i).getQuantity(), formatter.format(DetailtReceipt.get(i).getUnitPrice()) + "đ"
                 });
             }
         } catch (Exception e) {
@@ -376,27 +371,26 @@ public class UpdateDelivery extends javax.swing.JDialog {
 
     private void btnNhapHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhapHangActionPerformed
         // TODO add your handling code here:
-        if (CTPhieu.isEmpty()) {
+        if (DetailtReceipt.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please select a product to export!", "Warning", JOptionPane.WARNING_MESSAGE);
         } else {
             // Set so luong san pham cua tung loai ve ban dau        
-            for (var ct : CTPhieuOld) {
+            for (var ct : DetailtReceiptOld) {
                 ComputerDAO.getInstance().updateQuantity(ct.getProductId(), ComputerDAO.getInstance().selectById(ct.getProductId()).getQuantity() + ct.getQuantity());
                 System.out.println(ct.getQuantity());
             }
-            for (var ct : CTPhieu) {
+            for (var ct : DetailtReceipt) {
                 ComputerDAO.getInstance().updateQuantity(ct.getProductId(), ComputerDAO.getInstance().selectById(ct.getProductId()).getQuantity() - ct.getQuantity());
                 System.out.println(ct.getQuantity());
             }
             // Lay thoi gian hien tai
             long now = System.currentTimeMillis();
             Timestamp sqlTimestamp = new Timestamp(now);
-            // Tao doi tuong phieu nhap
-            ExportReceipt pn = new ExportReceipt(phieuxuat.getReceiptID(),tinhTongTien(),CTPhieu, txtNguoiTao.getText(),sqlTimestamp);
+            ExportReceipt ex = new ExportReceipt(exportreceipt.getReceiptID(),calculateTotalPrice(),DetailtReceipt, txtNguoiTao.getText(),sqlTimestamp);
             try {
-                ExportDAO.getInstance().update(pn);
-                ExportDetailDAO.getInstance().delete(CTPhieuOld.get(CTPhieuOld.size() - 1));
-                for (var i : CTPhieu) {
+                ExportDAO.getInstance().update(ex);
+                ExportDetailDAO.getInstance().delete(DetailtReceiptOld.get(DetailtReceiptOld.size() - 1));
+                for (var i : DetailtReceipt) {
                     ExportDetailDAO.getInstance().insert(i);
                 }
                 JOptionPane.showMessageDialog(this, "Update successfully!");
@@ -414,8 +408,8 @@ public class UpdateDelivery extends javax.swing.JDialog {
         if (i_row == -1) {
             JOptionPane.showMessageDialog(this, "Please select a product to remove from the list!");
         } else {
-            CTPhieu.remove(i_row);
-            textTongTien.setText(formatter.format(tinhTongTien()) + "đ");
+            DetailtReceipt.remove(i_row);
+            textTongTien.setText(formatter.format(calculateTotalPrice()) + "đ");
             loadDataToTableNhapHang();
         }
     }//GEN-LAST:event_deleteProductActionPerformed
@@ -428,15 +422,15 @@ public class UpdateDelivery extends javax.swing.JDialog {
         } else {
             String newSL = JOptionPane.showInputDialog(this, "Enter new quantity", "Modify quantity", QUESTION_MESSAGE);
             if (newSL != null) {
-                int soLuong;
+                int quantity;
                 try {
-                    soLuong = Integer.parseInt(newSL);
-                    if (soLuong > findMayTinh(CTPhieu.get(i_row).getProductId()).getQuantity()) {
+                    quantity = Integer.parseInt(newSL);
+                    if (quantity > findComputer(DetailtReceipt.get(i_row).getProductId()).getQuantity()) {
                         JOptionPane.showMessageDialog(this, "Insufficient stock quantity!");
                     } else {
-                        CTPhieu.get(i_row).setQuantity(soLuong);
+                        DetailtReceipt.get(i_row).setQuantity(quantity);
                         loadDataToTableNhapHang();
-                        textTongTien.setText(formatter.format(tinhTongTien()) + "đ");
+                        textTongTien.setText(formatter.format(calculateTotalPrice()) + "đ");
                     }
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(this, "Please enter a valid integer quantity!");
@@ -451,28 +445,28 @@ public class UpdateDelivery extends javax.swing.JDialog {
         if (i_row == -1) {
             JOptionPane.showMessageDialog(this, "Please select a product to add to receipt!");
         } else {
-            int soluongselect = allProduct.get(i_row).getQuantity();
-            if (soluongselect == 0) {
+            int quantityselect = allProduct.get(i_row).getQuantity();
+            if (quantityselect == 0) {
                 JOptionPane.showMessageDialog(this, "This product is out of stock!");
             } else {
-                int soluong = Integer.parseInt(txtSoLuong.getText().trim());
-                if (soluongselect < soluong) {
+                int quantity = Integer.parseInt(txtSoLuong.getText().trim());
+                if (quantityselect < quantity) {
                     JOptionPane.showMessageDialog(this, "Insufficient stock quantity!");
                 } else {
-                    ReceiptDetail mtl = findCTPhieu((String) tblSanPham.getValueAt(i_row, 0));
+                    ReceiptDetail mtl = findDetailReceipt((String) tblSanPham.getValueAt(i_row, 0));
                     if (mtl != null) {
-                        if (findMayTinh((String) tblSanPham.getValueAt(i_row, 0)).getQuantity() < mtl.getQuantity() + soluong) {
+                        if (findComputer((String) tblSanPham.getValueAt(i_row, 0)).getQuantity() < mtl.getQuantity() + quantity) {
                             JOptionPane.showMessageDialog(this, "Insufficient product quantity!");
                         } else {
-                            mtl.setQuantity(mtl.getQuantity() + soluong);
+                            mtl.setQuantity(mtl.getQuantity() + quantity);
                         }
                     } else {
                         Computer mt = SearchProduct.getInstance().searchId((String) tblSanPham.getValueAt(i_row, 0));
-                        ReceiptDetail ctp = new ReceiptDetail(phieuxuat.getReceiptID(), mt.getProductId(), soluong, mt.getExportPrice());
-                        CTPhieu.add(ctp);
+                        ReceiptDetail ctp = new ReceiptDetail(exportreceipt.getReceiptID(), mt.getProductId(), quantity, mt.getExportPrice());
+                        DetailtReceipt.add(ctp);
                     }
                     loadDataToTableNhapHang();
-                    textTongTien.setText(formatter.format(tinhTongTien()) + "đ");
+                    textTongTien.setText(formatter.format(calculateTotalPrice()) + "đ");
                 }
             }
         }
@@ -517,7 +511,7 @@ public class UpdateDelivery extends javax.swing.JDialog {
         });
     }
 
-    public void setNguoiTao(String name) {
+    public void setCreatedBy(String name) {
         txtNguoiTao.setText(name);
     }
 

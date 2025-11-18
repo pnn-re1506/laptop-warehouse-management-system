@@ -5,12 +5,13 @@ import model.Account;
 
 import java.util.ArrayList;
 
-public class SearchAccount {
+public class SearchAccount extends Searching<Account> {
     public static SearchAccount getInstance() {
         return new SearchAccount();
     }
 
-    public ArrayList<Account> searchAllAcc(String text) {
+    @Override
+    public ArrayList<Account> searchAll(String text) {
         ArrayList<Account> result = new ArrayList<>();
         ArrayList<Account> armt = AccountDAO.getInstance().selectAll();
         for (var ncc : armt) {
@@ -23,7 +24,8 @@ public class SearchAccount {
         return result;
     }
 
-    public ArrayList<Account> searchFullName(String text) {
+    @Override
+    public ArrayList<Account> searchName(String text) {
         ArrayList<Account> result = new ArrayList<>();
         ArrayList<Account> armt = AccountDAO.getInstance().selectAll();
         for (var ncc : armt) {
@@ -34,7 +36,8 @@ public class SearchAccount {
         return result;
     }
 
-    public ArrayList<Account> searchUserName(String text) {
+    @Override
+    public ArrayList<Account> searchID(String text) {
         ArrayList<Account> result = new ArrayList<>();
         ArrayList<Account> armt = AccountDAO.getInstance().selectAll();
         for (var ncc : armt) {

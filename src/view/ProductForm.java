@@ -89,14 +89,14 @@ public class ProductForm extends javax.swing.JInternalFrame {
             tblModel.setRowCount(0);
             for (Computer i : armt) {
                 if (i.getStatus() == 1) {
-                    String loaimay;
+                    String type;
                     if (LaptopDAO.getInstance().isLaptop(i.getProductId()) == true) {
-                        loaimay = "Laptop";
+                        type = "Laptop";
                     } else {
-                        loaimay = "PC";
+                        type = "PC";
                     }
                     tblModel.addRow(new Object[]{
-                        i.getProductId(), i.getProductName(), i.getQuantity(), formatter.format(i.getImportPrice()) + "đ", formatter.format(i.getExportPrice()) + "đ", i.getCpuName(),i.getGraphicsCard(), i.getRam(), i.getStorage(), loaimay
+                        i.getProductId(), i.getProductName(), i.getQuantity(), formatter.format(i.getImportPrice()) + "đ", formatter.format(i.getExportPrice()) + "đ", i.getCpuName(),i.getGraphicsCard(), i.getRam(), i.getStorage(), type
                     });
                 }
             }
@@ -310,7 +310,7 @@ public class ProductForm extends javax.swing.JInternalFrame {
         if (tblSanPham.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(this, "Please select a product to delete!");
         } else {
-            xoaMayTinhSelect();
+            deleteComputerSelect();
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
@@ -383,31 +383,31 @@ public class ProductForm extends javax.swing.JInternalFrame {
                 for (int row = 1; row <= excelSheet.getLastRowNum(); row++) {
                     XSSFRow excelRow = excelSheet.getRow(row);
                     
-                    String maMay = excelRow.getCell(0).getStringCellValue();
+                    String id = excelRow.getCell(0).getStringCellValue();
                     
-                    String tenMay = excelRow.getCell(1).getStringCellValue();
+                    String name = excelRow.getCell(1).getStringCellValue();
                     
-                    int soLuong = (int) excelRow.getCell(2).getNumericCellValue();
+                    int quantity = (int) excelRow.getCell(2).getNumericCellValue();
                     
-                    String giaNhapFormat = excelRow.getCell(3).getStringCellValue().replaceAll(",", "");
-                    int viTri1 = giaNhapFormat.length() - 1;
-                    String giaNhapStr = giaNhapFormat.substring(0, viTri1) + giaNhapFormat.substring(viTri1 + 1);
-                    double giaNhap = Double.parseDouble(giaNhapStr);
+                    String imPriceFormat = excelRow.getCell(3).getStringCellValue().replaceAll(",", "");
+                    int pos1 = imPriceFormat.length() - 1;
+                    String imPriceStr = imPriceFormat.substring(0, pos1) + imPriceFormat.substring(pos1 + 1);
+                    double imPrice = Double.parseDouble(imPriceStr);
                     
-                    String giaXuatFormat = excelRow.getCell(4).getStringCellValue().replaceAll(",", "");
-                    int viTri2 = giaXuatFormat.length() - 1;
-                    String giaXuatStr = giaXuatFormat.substring(0, viTri2) + giaXuatFormat.substring(viTri2 + 1);
-                    double giaXuat = Double.parseDouble(giaXuatStr);
+                    String exPriceFormat = excelRow.getCell(4).getStringCellValue().replaceAll(",", "");
+                    int pos2 = exPriceFormat.length() - 1;
+                    String exPriceStr = exPriceFormat.substring(0, pos2) + exPriceFormat.substring(pos2 + 1);
+                    double exPrice = Double.parseDouble(exPriceStr);
                     
-                    String boXuLi = excelRow.getCell(5).getStringCellValue();
+                    String cpu = excelRow.getCell(5).getStringCellValue();
                     
                     String graphicsCard = excelRow.getCell(6).getStringCellValue();
 
                     String ram = excelRow.getCell(7).getStringCellValue();
 
-                    String boNho = excelRow.getCell(8).getStringCellValue();
+                    String rom = excelRow.getCell(8).getStringCellValue();
 
-                    Computer mt = new Computer(maMay, tenMay, soLuong, boXuLi, ram, graphicsCard, giaNhap, giaXuat, boNho, 1);
+                    Computer mt = new Computer(id, name, quantity, cpu, ram, graphicsCard, imPrice, exPrice, rom, 1);
                     listAccExcel.add(mt);
                     DefaultTableModel table_acc = (DefaultTableModel) tblSanPham.getModel();
                     table_acc.setRowCount(0);
@@ -420,17 +420,17 @@ public class ProductForm extends javax.swing.JInternalFrame {
             }
         }
         for (int i = 0; i < listAccExcel.size(); i++) {
-            Computer mayTinh = listAccExcel.get(i);
-            if (mayTinh.getProductId().contains("LP")) {
-                Laptop lapNew = new Laptop(mayTinh.getProductId(), mayTinh.getProductName(), mayTinh.getQuantity(), mayTinh.getCpuName(), mayTinh.getRam()
-                , mayTinh.getGraphicsCard(), mayTinh.getImportPrice(), mayTinh.getExportPrice(), mayTinh.getStorage(), 1, 0);
+            Computer computer = listAccExcel.get(i);
+            if (computer.getProductId().contains("LP")) {
+                Laptop lapNew = new Laptop(computer.getProductId(), computer.getProductName(), computer.getQuantity(), computer.getCpuName(), computer.getRam()
+                , computer.getGraphicsCard(), computer.getImportPrice(), computer.getExportPrice(), computer.getStorage(), 1, 0);
                 LaptopDAO.getInstance().insert(lapNew);
-            } else if (mayTinh.getProductId().contains("PC")) {
-                PC pcNew = new PC(mayTinh.getProductId(), mayTinh.getProductName(), mayTinh.getQuantity(), mayTinh.getCpuName(), mayTinh.getRam()
-                , mayTinh.getGraphicsCard(), mayTinh.getImportPrice(), mayTinh.getExportPrice(), mayTinh.getStorage(), 1, "");
+            } else if (computer.getProductId().contains("PC")) {
+                PC pcNew = new PC(computer.getProductId(), computer.getProductName(), computer.getQuantity(), computer.getCpuName(), computer.getRam()
+                , computer.getGraphicsCard(), computer.getImportPrice(), computer.getExportPrice(), computer.getStorage(), 1, "");
                 PCDAO.getInstance().insert(pcNew);
             } else {
-                JOptionPane.showMessageDialog(this, "Product ID " + mayTinh.getProductId() + " Invalid!", "Warning", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Product ID " + computer.getProductId() + " Invalid!", "Warning", JOptionPane.WARNING_MESSAGE);
             }
         }
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -453,17 +453,17 @@ public class ProductForm extends javax.swing.JInternalFrame {
 
     private void jTextFieldSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldSearchKeyReleased
         // TODO add your handling code here:
-        String luaChon = jComboBoxLuaChon.getSelectedItem().toString();
+        String choice = jComboBoxLuaChon.getSelectedItem().toString();
         String content = jTextFieldSearch.getText();
-        ArrayList<Computer> result = searchFn(luaChon, content);
+        ArrayList<Computer> result = searchFn(choice, content);
         loadDataToTableSearch(result);
     }//GEN-LAST:event_jTextFieldSearchKeyReleased
 
     private void jComboBoxLuaChonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxLuaChonActionPerformed
         // TODO add your handling code here:
-        String luaChon = jComboBoxLuaChon.getSelectedItem().toString();
+        String choice = jComboBoxLuaChon.getSelectedItem().toString();
         String content = jTextFieldSearch.getText();
-        ArrayList<Computer> result = searchFn(luaChon, content);
+        ArrayList<Computer> result = searchFn(choice, content);
         loadDataToTableSearch(result);
     }//GEN-LAST:event_jComboBoxLuaChonActionPerformed
 
@@ -474,9 +474,9 @@ public class ProductForm extends javax.swing.JInternalFrame {
 
     private void jComboBoxLuaChonPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jComboBoxLuaChonPropertyChange
         // TODO add your handling code here:
-        String luaChon = jComboBoxLuaChon.getSelectedItem().toString();
+        String choice = jComboBoxLuaChon.getSelectedItem().toString();
         String content = jTextFieldSearch.getText();
-        ArrayList<Computer> result = searchFn(luaChon, content);
+        ArrayList<Computer> result = searchFn(choice, content);
         loadDataToTableSearch(result);
     }//GEN-LAST:event_jComboBoxLuaChonPropertyChange
 
@@ -484,18 +484,18 @@ public class ProductForm extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldSearchActionPerformed
 
-    public ArrayList<Computer> searchFn(String luaChon, String content) {
+    public ArrayList<Computer> searchFn(String choice, String content) {
         ArrayList<Computer> result = new ArrayList<>();
         SearchProduct searchPr = new SearchProduct();
-        switch (luaChon) {
+        switch (choice) {
             case "All":
                 result = searchPr.searchAll(content);
                 break;
             case "Product ID":
-                result = searchPr.searchProductId(content);
+                result = searchPr.searchID(content);
                 break;
             case "Product Name":
-                result = searchPr.searchProductName(content);
+                result = searchPr.searchName(content);
                 break;
             case "Quantity":
                 result = searchPr.searchQuantity(content);
@@ -525,7 +525,7 @@ public class ProductForm extends javax.swing.JInternalFrame {
     }
 
     public boolean checklap() {
-        if (LaptopDAO.getInstance().isLaptop(getMayTinhSelect().getProductId()) == true) {
+        if (LaptopDAO.getInstance().isLaptop(getComputerSelect().getProductId()) == true) {
             return true;
         } else {
             return false;
@@ -533,28 +533,28 @@ public class ProductForm extends javax.swing.JInternalFrame {
     }
 
     public Laptop getDetailLapTop() {
-        Laptop a = LaptopDAO.getInstance().selectById(getMayTinhSelect().getProductId());
+        Laptop a = LaptopDAO.getInstance().selectById(getComputerSelect().getProductId());
         return a;
     }
 
     public PC getDetailPC() {
-        PC a = PCDAO.getInstance().selectById(getMayTinhSelect().getProductId());
+        PC a = PCDAO.getInstance().selectById(getComputerSelect().getProductId());
         return a;
     }
 
-    public void xoaMayTinhSelect() {
+    public void deleteComputerSelect() {
         DefaultTableModel table_acc = (DefaultTableModel) tblSanPham.getModel();
         int i_row = tblSanPham.getSelectedRow();
         int luaChon = JOptionPane.showConfirmDialog(this, "Do you want to delete this product?", "Delete Product",
                 JOptionPane.YES_NO_OPTION);
         if (luaChon == JOptionPane.YES_OPTION) {
-            Computer remove = getMayTinhSelect();
+            Computer remove = getComputerSelect();
             ComputerDAO.getInstance().deleteStatus(remove.getProductId());
         }
         loadDataToTable();
     }
 
-    public Computer getMayTinhSelect() {
+    public Computer getComputerSelect() {
         int i_row = tblSanPham.getSelectedRow();
         Computer acc = ComputerDAO.getInstance().selectById(tblModel.getValueAt(i_row, 0).toString());
         return acc;
@@ -564,14 +564,14 @@ public class ProductForm extends javax.swing.JInternalFrame {
         try {
             tblModel.setRowCount(0);
             for (Computer i : result) {
-                String loaimay;
+                String type;
                 if (LaptopDAO.getInstance().isLaptop(i.getProductId()) == true) {
-                    loaimay = "Laptop";
+                    type = "Laptop";
                 } else {
-                    loaimay = "PC";
+                    type = "PC";
                 }
                 tblModel.addRow(new Object[]{
-                    i.getProductId(), i.getProductName(), i.getQuantity(), formatter.format(i.getImportPrice()) + "đ", formatter.format(i.getExportPrice()) + "đ", i.getCpuName(), i.getGraphicsCard(), i.getRam(), i.getStorage(), loaimay
+                    i.getProductId(), i.getProductName(), i.getQuantity(), formatter.format(i.getImportPrice()) + "đ", formatter.format(i.getExportPrice()) + "đ", i.getCpuName(), i.getGraphicsCard(), i.getRam(), i.getStorage(), type
                 });
             }
         } catch (Exception e) {

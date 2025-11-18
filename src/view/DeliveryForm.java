@@ -80,11 +80,11 @@ public class DeliveryForm extends javax.swing.JInternalFrame {
 
     public void loadDataToTable() {
         try {
-            ArrayList<ExportReceipt> allPhieu = ExportDAO.getInstance().selectAll();
+            ArrayList<ExportReceipt> allReceipt = ExportDAO.getInstance().selectAll();
             tblModel.setRowCount(0);
-            for (int i = 0; i < allPhieu.size(); i++) {
+            for (int i = 0; i < allReceipt.size(); i++) {
                 tblModel.addRow(new Object[]{
-                    i + 1, allPhieu.get(i).getReceiptID(), AccountDAO.getInstance().selectById(allPhieu.get(i).getCreatedBy()).getFullName(), formatDate.format(allPhieu.get(i).getCreatedDate()), formatter.format(allPhieu.get(i).getTotalAmount()) + "đ"
+                    i + 1, allReceipt.get(i).getReceiptID(), AccountDAO.getInstance().selectById(allReceipt.get(i).getCreatedBy()).getFullName(), formatDate.format(allReceipt.get(i).getCreatedDate()), formatter.format(allReceipt.get(i).getTotalAmount()) + "đ"
                 });
             }
         } catch (Exception e) {
@@ -382,19 +382,19 @@ public class DeliveryForm extends javax.swing.JInternalFrame {
         if (tblPhieuXuat.getSelectedRow() == -1) {
             JOptionPane.showMessageDialog(this, "Please select a receipt to delete!");
         } else {
-            deletePhieu(getPhieuXuatSelect());
+            deleteReceipt(getExReceiptSelect());
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
-    public void deletePhieu(ExportReceipt pn) {
-        int result = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete receipt " + pn.getReceiptID(), "Confirm Deletion", JOptionPane.YES_NO_OPTION);
+    public void deleteReceipt(ExportReceipt ex) {
+        int result = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete receipt " + ex.getReceiptID(), "Confirm Deletion", JOptionPane.YES_NO_OPTION);
         if (result == JOptionPane.YES_OPTION) {
-            ArrayList<ReceiptDetail> ctPhieu = ExportDetailDAO.getInstance().selectAll(pn.getReceiptID());
-            for (ReceiptDetail i : ctPhieu) {
+            ArrayList<ReceiptDetail> receiptDetail = ExportDetailDAO.getInstance().selectAll(ex.getReceiptID());
+            for (ReceiptDetail i : receiptDetail) {
                 ExportDetailDAO.getInstance().delete(i);
             }
-            ExportDAO.getInstance().delete(pn);
-            JOptionPane.showMessageDialog(this, "Receipt deleted successfully: " + pn.getReceiptID());
+            ExportDAO.getInstance().delete(ex);
+            JOptionPane.showMessageDialog(this, "Receipt deleted successfully: " + ex.getReceiptID());
             loadDataToTable();
         }
     }
@@ -473,18 +473,18 @@ public class DeliveryForm extends javax.swing.JInternalFrame {
                 XSSFSheet excelSheet = excelJTableImport.getSheetAt(0);
                 for (int row = 1; row <= excelSheet.getLastRowNum(); row++) {
                     XSSFRow excelRow = excelSheet.getRow(row);
-                    String maPhieu = excelRow.getCell(1).getStringCellValue();
-                    String nhaCungCap = excelRow.getCell(2).getStringCellValue();
-                    String nguoiTao = excelRow.getCell(3).getStringCellValue();
+                    String id = excelRow.getCell(1).getStringCellValue();
+                    String supplier = excelRow.getCell(2).getStringCellValue();
+                    String createdBy = excelRow.getCell(3).getStringCellValue();
                     String dateText = excelRow.getCell(4).getStringCellValue();
                     SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
                     Date dateCheck = format.parse(dateText);
-                    String giaFomat = excelRow.getCell(5).getStringCellValue().replaceAll(",", "");
-                    int viTri = giaFomat.length() - 1;
-                    String giaoke = giaFomat.substring(0, viTri) + giaFomat.substring(viTri + 1);
-                    double donGia = Double.parseDouble(giaoke);
+                    String priceFomat = excelRow.getCell(5).getStringCellValue().replaceAll(",", "");
+                    int pos = priceFomat.length() - 1;
+                    String giaoke = priceFomat.substring(0, pos) + priceFomat.substring(pos + 1);
+                    double unitPrice = Double.parseDouble(giaoke);
                     table_acc.addRow(new Object[]{
-                        row, maPhieu, nhaCungCap, nguoiTao, formatDate.format(dateCheck), formatter.format(donGia) + "đ"
+                        row, id, supplier, createdBy, formatDate.format(dateCheck), formatter.format(unitPrice) + "đ"
                     });
                 }
             } catch (FileNotFoundException ex) {
@@ -552,10 +552,10 @@ public class DeliveryForm extends javax.swing.JInternalFrame {
         searchAllCheck();
     }//GEN-LAST:event_giaDenKeyReleased
 
-    public ExportReceipt getPhieuXuatSelect() {
+    public ExportReceipt getExReceiptSelect() {
         int i_row = tblPhieuXuat.getSelectedRow();
-        ExportReceipt pn = ExportDAO.getInstance().selectAll().get(i_row);
-        return pn;
+        ExportReceipt ex = ExportDAO.getInstance().selectAll().get(i_row);
+        return ex;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -594,12 +594,12 @@ public class DeliveryForm extends javax.swing.JInternalFrame {
         }
     }
 
-    private void loadDataToTableArr(ArrayList<ExportReceipt> allPhieu) {
+    private void loadDataToTableArr(ArrayList<ExportReceipt> allReceipt) {
         try {
             tblModel.setRowCount(0);
-            for (int i = 0; i < allPhieu.size(); i++) {
+            for (int i = 0; i < allReceipt.size(); i++) {
                 tblModel.addRow(new Object[]{
-                    i + 1, allPhieu.get(i).getReceiptID(), AccountDAO.getInstance().selectById(allPhieu.get(i).getCreatedBy()).getFullName(), formatDate.format(allPhieu.get(i).getCreatedDate()), formatter.format(allPhieu.get(i).getTotalAmount()) + "đ"
+                    i + 1, allReceipt.get(i).getReceiptID(), AccountDAO.getInstance().selectById(allReceipt.get(i).getCreatedBy()).getFullName(), formatDate.format(allReceipt.get(i).getCreatedDate()), formatter.format(allReceipt.get(i).getTotalAmount()) + "đ"
                 });
             }
         } catch (Exception e) {
@@ -607,20 +607,20 @@ public class DeliveryForm extends javax.swing.JInternalFrame {
     }
 
     public void searchAllCheck() {
-        String luaChon = jComboBoxS.getSelectedItem().toString();
+        String choice = jComboBoxS.getSelectedItem().toString();
         String content = jTextFieldSearch.getText();
         ArrayList<ExportReceipt> result = null;
         if (content.length() > 0) {
             result = new ArrayList<>();
-            switch (luaChon) {
+            switch (choice) {
                 case "All":
-                    result = searchTatCa(content);
+                    result = searchAll(content);
                     break;
                 case "Delivery ID":
-                    result = searchMaPhieu(content);
+                    result = searchReceiptID(content);
                     break;
                 case "Created By":
-                    result = searchNguoiTao(content);
+                    result = searchCreatedBy(content);
                     break;
             }
         } else if (content.length() == 0) {
@@ -635,8 +635,8 @@ public class DeliveryForm extends javax.swing.JInternalFrame {
                     from = ChangeFrom(jDateChooserFrom.getDate());
                     to = ChangeTo(new Date());
                     while (itr.hasNext()) {
-                        ExportReceipt phieu = itr.next();
-                        if (!checkDate(phieu.getCreatedDate(), from, to)) {
+                        ExportReceipt receipt = itr.next();
+                        if (!checkDate(receipt.getCreatedDate(), from, to)) {
                             itr.remove();
                         }
                     }
@@ -649,8 +649,8 @@ public class DeliveryForm extends javax.swing.JInternalFrame {
                     from = ChangeFrom(new SimpleDateFormat("dd/MM/yyyy").parse(sDate1));
                     to = ChangeTo(jDateChooserTo.getDate());
                     while (itr.hasNext()) {
-                        ExportReceipt phieu = itr.next();
-                        if (!checkDate(phieu.getCreatedDate(), from, to)) {
+                        ExportReceipt receipt = itr.next();
+                        if (!checkDate(receipt.getCreatedDate(), from, to)) {
                             itr.remove();
                         }
                     }
@@ -667,8 +667,8 @@ public class DeliveryForm extends javax.swing.JInternalFrame {
                         jDateChooserTo.setCalendar(null);
                     } else {
                         while (itr.hasNext()) {
-                            ExportReceipt phieu = itr.next();
-                            if (!checkDate(phieu.getCreatedDate(), from, to)) {
+                            ExportReceipt receipt = itr.next();
+                            if (!checkDate(receipt.getCreatedDate(), from, to)) {
                                 itr.remove();
                             }
                         }
@@ -719,7 +719,7 @@ public class DeliveryForm extends javax.swing.JInternalFrame {
         return dateTest.getTime() >= star.getTime() && dateTest.getTime() <= end.getTime();
     }
 
-    public ArrayList<ExportReceipt> searchTatCa(String text) {
+    public ArrayList<ExportReceipt> searchAll(String text) {
         ArrayList<ExportReceipt> result = new ArrayList<>();
         ArrayList<ExportReceipt> armt = ExportDAO.getInstance().selectAll();
         for (var phieu : armt) {
@@ -748,7 +748,7 @@ public class DeliveryForm extends javax.swing.JInternalFrame {
         return result;
     }
 
-    public ArrayList<ExportReceipt> searchMaPhieu(String text) {
+    public ArrayList<ExportReceipt> searchReceiptID(String text) {
         ArrayList<ExportReceipt> result = new ArrayList<>();
         ArrayList<ExportReceipt> armt = ExportDAO.getInstance().selectAll();
         for (var phieu : armt) {
@@ -759,7 +759,7 @@ public class DeliveryForm extends javax.swing.JInternalFrame {
         return result;
     }
 
-    public ArrayList<ExportReceipt> searchNguoiTao(String text) {
+    public ArrayList<ExportReceipt> searchCreatedBy(String text) {
         ArrayList<ExportReceipt> result = new ArrayList<>();
         ArrayList<ExportReceipt> armt = ExportDAO.getInstance().selectAll();
         for (var phieu : armt) {

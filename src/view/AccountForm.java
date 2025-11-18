@@ -508,13 +508,13 @@ public class AccountForm extends javax.swing.JInternalFrame {
         ArrayList<Account> result = new ArrayList<>();
         switch (luachon) {
             case "All":
-                result = SearchAccount.getInstance().searchAllAcc(searchContent);
+                result = SearchAccount.getInstance().searchAll(searchContent);
                 break;
             case "Full Name":
-                result = SearchAccount.getInstance().searchFullName(searchContent);
+                result = SearchAccount.getInstance().searchName(searchContent);
                 break;
             case "User Name":
-                result = SearchAccount.getInstance().searchUserName(searchContent);
+                result = SearchAccount.getInstance().searchID(searchContent);
                 break;
             case "Role":
                 result = SearchAccount.getInstance().searchRole(searchContent);

@@ -17,9 +17,7 @@ import model.Account;
 
 public class Admin extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Navbar
-     */
+
     Color DefaultColor, ClickedColor;
     private Account currentAcc;
 
@@ -632,32 +630,32 @@ public class Admin extends javax.swing.JFrame {
 
     private void NhapHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NhapHangMouseClicked
         // TODO add your handling code here:
-        ImportForm nhaphang = new ImportForm();
-        nhaphang.setNguoiNhapHang(this.currentAcc.getUserName());
+        ImportForm im = new ImportForm();
+        im.setImportUser(this.currentAcc.getUserName());
         MainContent.removeAll();
-        MainContent.add(nhaphang).setVisible(true);
+        MainContent.add(im).setVisible(true);
     }//GEN-LAST:event_NhapHangMouseClicked
 
     private void PhieuNhapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PhieuNhapMouseClicked
         // TODO add your handling code here:
-        ReceiptForm pn = new ReceiptForm(this.getCurrentAcc());
+        ReceiptForm imReceipt = new ReceiptForm(this.getCurrentAcc());
         MainContent.removeAll();
-        MainContent.add(pn).setVisible(true);
+        MainContent.add(imReceipt).setVisible(true);
     }//GEN-LAST:event_PhieuNhapMouseClicked
 
     private void XuatHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_XuatHangMouseClicked
         // TODO add your handling code here:
-        ExportForm xh = new ExportForm();
-        xh.setNguoiTao(this.currentAcc.getUserName());
+        ExportForm ex = new ExportForm();
+        ex.setCreatedBy(this.currentAcc.getUserName());
         MainContent.removeAll();
-        MainContent.add(xh).setVisible(true);
+        MainContent.add(ex).setVisible(true);
     }//GEN-LAST:event_XuatHangMouseClicked
 
     private void PhieuXuatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PhieuXuatMouseClicked
         // TODO add your handling code here:
-        DeliveryForm px = new DeliveryForm(this.getCurrentAcc());
+        DeliveryForm exReceipt = new DeliveryForm(this.getCurrentAcc());
         MainContent.removeAll();
-        MainContent.add(px).setVisible(true);
+        MainContent.add(exReceipt).setVisible(true);
     }//GEN-LAST:event_PhieuXuatMouseClicked
 
     private void DangXuatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DangXuatMouseClicked
@@ -698,9 +696,9 @@ public class Admin extends javax.swing.JFrame {
 
     private void ThongKeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ThongKeMouseClicked
         // TODO add your handling code here:
-        StatisticForm tk = new StatisticForm();
+        StatisticForm stas = new StatisticForm();
         MainContent.removeAll();
-        MainContent.add(tk).setVisible(true);
+        MainContent.add(stas).setVisible(true);
     }//GEN-LAST:event_ThongKeMouseClicked
 
     private void ThongKeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ThongKeMousePressed

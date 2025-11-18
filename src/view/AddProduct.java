@@ -363,11 +363,11 @@ public class AddProduct extends javax.swing.JDialog {
 
     private void btnAddProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddProductActionPerformed
         // TODO add your handling code here:
-        String maMay = txtMaSanPham.getText();
-        String tenMay = txtTenSanPham.getText();
+        String productID = txtMaSanPham.getText();
+        String productName = txtTenSanPham.getText();
         double importPrice = 0;
         double exportPrice = 0;
-        double kichthuocman = 0;
+        double screen = 0;
         try {
             importPrice = Double.parseDouble(txtGiaNhap.getText());
             exportPrice = Double.parseDouble(txtGiaXuat.getText());
@@ -390,18 +390,18 @@ public class AddProduct extends javax.swing.JDialog {
         String rom = txtROM.getText();
         String gpu = txtGPU.getText();
 
-        int trangThai = 1;
+        int status = 1;
         if (cbxloaisp.getSelectedItem().equals("Laptop")) {
             try {
-                kichthuocman = Double.parseDouble(txtKichThuocMan.getText());
+                screen = Double.parseDouble(txtKichThuocMan.getText());
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Please enter a valid numeric screen size!");
             }
 
-            if (maMay.equals("") && tenMay.equals("") && cpu.equals("") && ram.equals("") && rom.equals("") && gpu.equals("")) {
+            if (productID.equals("") && productName.equals("") && cpu.equals("") && ram.equals("") && rom.equals("") && gpu.equals("")) {
                 JOptionPane.showMessageDialog(this, "Please fill in all required information!");
             } else {
-                Laptop lp = new Laptop(maMay, tenMay, 0, cpu, ram, gpu, importPrice, exportPrice, rom, trangThai, kichthuocman);
+                Laptop lp = new Laptop(productID, productName, 0, cpu, ram, gpu, importPrice, exportPrice, rom, status, screen);
                 try {
                     LaptopDAO.getInstance().insert(lp);
                     this.dispose();
@@ -415,10 +415,10 @@ public class AddProduct extends javax.swing.JDialog {
         if (cbxloaisp.getSelectedItem().equals("PC")) {
             String mainboard = txtMainBoard.getText();
 
-            if (maMay.equals("") && tenMay.equals("") && cpu.equals("") && ram.equals("") && rom.equals("") && gpu.equals("") && mainboard.equals("")) {
+            if (productID.equals("") && productName.equals("") && cpu.equals("") && ram.equals("") && rom.equals("") && gpu.equals("") && mainboard.equals("")) {
                 JOptionPane.showMessageDialog(this, "Please fill in all required information!");
             } else {
-                PC pc = new PC(maMay, tenMay, 0, cpu, ram, gpu, importPrice, exportPrice, rom, trangThai, mainboard);
+                PC pc = new PC(productID, productName, 0, cpu, ram, gpu, importPrice, exportPrice, rom, status, mainboard);
                 PCDAO.getInstance().insert(pc);
                 this.dispose();
                 JOptionPane.showMessageDialog(this, "Product added successfully!");
@@ -455,17 +455,17 @@ public class AddProduct extends javax.swing.JDialog {
     public String createIdPC() {
         ArrayList<Computer> mtAll = ComputerDAO.getInstance().selectAll();
         ArrayList<Computer> pcAll = new ArrayList<Computer>();
-        for (Computer mayTinh : mtAll) {
-            if (mayTinh.getProductId().contains("PC")) {
-                pcAll.add(mayTinh);
+        for (Computer computer : mtAll) {
+            if (computer.getProductId().contains("PC")) {
+                pcAll.add(computer);
             }
         }
         int i = pcAll.size();
         String check ="check";
         while(check.length()!=0){
             i++;
-            for (Computer mayTinh : pcAll) {
-                if(mayTinh.getProductId().equals("PC"+i)){
+            for (Computer computer : pcAll) {
+                if(computer.getProductId().equals("PC"+i)){
                     check="";
                 }
             }
@@ -481,17 +481,17 @@ public class AddProduct extends javax.swing.JDialog {
     public String createIdLT() {
         ArrayList<Computer> mtAll = ComputerDAO.getInstance().selectAll();
         ArrayList<Computer> lpAll = new ArrayList<Computer>();
-        for (Computer mayTinh : mtAll) {
-            if (mayTinh.getProductId().contains("LP")) {
-                lpAll.add(mayTinh);
+        for (Computer computer : mtAll) {
+            if (computer.getProductId().contains("LP")) {
+                lpAll.add(computer);
             }
         }
         int i = lpAll.size();
         String check ="check";
         while(check.length()!=0){
             i++;
-            for (Computer mayTinh : lpAll) {
-                if(mayTinh.getProductId().equals("LP"+i)){
+            for (Computer computer : lpAll) {
+                if(computer.getProductId().equals("LP"+i)){
                     check="";
                 }
             }

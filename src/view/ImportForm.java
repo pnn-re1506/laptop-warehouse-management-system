@@ -44,8 +44,8 @@ public class ImportForm extends javax.swing.JInternalFrame {
     private DefaultTableModel tblModel;
     DecimalFormat formatter = new DecimalFormat("###,###,###");
     private ArrayList<Computer> allProduct;
-    private String MaPhieu;
-    private ArrayList<ReceiptDetail> CTPhieu;
+    private String receipID;
+    private ArrayList<ReceiptDetail> DetailReceipt;
     private static final ArrayList<Supplier> arrNcc = SupplierDAO.getInstance().selectAll();
 
     public ImportForm() {
@@ -58,9 +58,9 @@ public class ImportForm extends javax.swing.JInternalFrame {
         loadNccToComboBox();
         tblSanPham.setDefaultEditor(Object.class, null);
         tblNhapHang.setDefaultEditor(Object.class, null);
-        MaPhieu = createId(ImportDAO.getInstance().selectAll());
-        txtMaPhieu.setText(MaPhieu);
-        CTPhieu = new ArrayList<ReceiptDetail>();
+        receipID = createId(ImportDAO.getInstance().selectAll());
+        txtMaPhieu.setText(receipID);
+        DetailReceipt = new ArrayList<ReceiptDetail>();
     }
 
     private void loadNccToComboBox() {
@@ -94,26 +94,26 @@ public class ImportForm extends javax.swing.JInternalFrame {
         }
     }
 
-    public double tinhTongTien() {
+    public double calTotalAmount() {
         double tt = 0;
-        for (var i : CTPhieu) {
+        for (var i : DetailReceipt) {
             tt += i.getUnitPrice() * i.getQuantity();
         }
         return tt;
     }
 
-    public Computer findMayTinh(String maMay) {
+    public Computer findComputer(String id) {
         for (var i : allProduct) {
-            if (maMay.equals(i.getProductId())) {
+            if (id.equals(i.getProductId())) {
                 return i;
             }
         }
         return null;
     }
 
-    public ReceiptDetail findCTPhieu(String maMay) {
-        for (var i : CTPhieu) {
-            if (maMay.equals(i.getProductId())) {
+    public ReceiptDetail findDetailReceipt(String id) {
+        for (var i : DetailReceipt) {
+            if (id.equals(i.getProductId())) {
                 return i;
             }
         }
@@ -126,18 +126,18 @@ public class ImportForm extends javax.swing.JInternalFrame {
             DefaultTableModel tblNhapHangmd = (DefaultTableModel) tblNhapHang.getModel();
             tblNhapHangmd.setRowCount(0);
 
-            for (int i = 0; i < CTPhieu.size(); i++) {
+            for (int i = 0; i < DetailReceipt.size(); i++) {
                 tblNhapHangmd.addRow(new Object[]{
-                    i + 1, CTPhieu.get(i).getProductId(), findMayTinh(CTPhieu.get(i).getProductId()).getProductName(), CTPhieu.get(i).getQuantity(), formatter.format(CTPhieu.get(i).getUnitPrice()) + "đ"
+                    i + 1, DetailReceipt.get(i).getProductId(), findComputer(DetailReceipt.get(i).getProductId()).getProductName(), DetailReceipt.get(i).getQuantity(), formatter.format(DetailReceipt.get(i).getUnitPrice()) + "đ"
                 });
-                sum += CTPhieu.get(i).getUnitPrice() * CTPhieu.get(i).getQuantity();
+                sum += DetailReceipt.get(i).getUnitPrice() * DetailReceipt.get(i).getQuantity();
             }
         } catch (Exception e) {
         }
         textTongTien.setText(formatter.format(sum) + "đ");
     }
 
-    public void setNguoiNhapHang(String name) {
+    public void setImportUser(String name) {
         txtNguoiTao.setText(name);
     }
 
@@ -391,7 +391,7 @@ public class ImportForm extends javax.swing.JInternalFrame {
 
     private void btnNhapHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhapHangActionPerformed
         // TODO add your handling code here:
-        if (CTPhieu.size() == 0) {
+        if (DetailReceipt.size() == 0) {
             JOptionPane.showMessageDialog(this, "Please select a product to import !", "Warning", JOptionPane.WARNING_MESSAGE);
         } else {
             int check = JOptionPane.showConfirmDialog(this, "Are you sure you want to confirm this import?", "Confirm Import", JOptionPane.YES_NO_OPTION);
@@ -399,12 +399,11 @@ public class ImportForm extends javax.swing.JInternalFrame {
                 // Lay thoi gian hien tai
                 long now = System.currentTimeMillis();
                 Timestamp sqlTimestamp = new Timestamp(now);
-                // Tao doi tuong phieu nhap
-                ImportReceipt pn = new ImportReceipt(MaPhieu, tinhTongTien(), CTPhieu,txtNguoiTao.getText(), sqlTimestamp, arrNcc.get(cboNhaCungCap.getSelectedIndex()).getSupplierId());
+                ImportReceipt im = new ImportReceipt(receipID, calTotalAmount(), DetailReceipt,txtNguoiTao.getText(), sqlTimestamp, arrNcc.get(cboNhaCungCap.getSelectedIndex()).getSupplierId());
                 try {
-                    ImportDAO.getInstance().insert(pn);
+                    ImportDAO.getInstance().insert(im);
                     ComputerDAO mtdao = ComputerDAO.getInstance();
-                    for (var i : CTPhieu) {
+                    for (var i : DetailReceipt) {
                         ImportDetailDAO.getInstance().insert(i);
                         mtdao.updateQuantity(i.getProductId(), mtdao.selectById(i.getProductId()).getQuantity() + i.getQuantity());
                     }
@@ -412,17 +411,17 @@ public class ImportForm extends javax.swing.JInternalFrame {
                     int res = JOptionPane.showConfirmDialog(this, "Do you want to export to PDF?","",JOptionPane.YES_NO_OPTION);
                     if (res == JOptionPane.YES_OPTION) {
                         WritePDF writepdf = new WritePDF();
-                        writepdf.writeReceipt(MaPhieu);
+                        writepdf.writeReceipt(receipID);
                     }
                     ArrayList<Computer> productUp = ComputerDAO.getInstance().selectAllExist();
                     txtSoLuong.setText("1");
                     loadDataToTableProduct(productUp);
                     DefaultTableModel r = (DefaultTableModel) tblNhapHang.getModel();
                     r.setRowCount(0);
-                    CTPhieu = new ArrayList<>();
+                    DetailReceipt = new ArrayList<>();
                     textTongTien.setText("0");
-                    this.MaPhieu = createId(ImportDAO.getInstance().selectAll());
-                    txtMaPhieu.setText(this.MaPhieu);
+                    this.receipID = createId(ImportDAO.getInstance().selectAll());
+                    txtMaPhieu.setText(this.receipID);
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(this, "An error occurred!");
                 }
@@ -436,21 +435,21 @@ public class ImportForm extends javax.swing.JInternalFrame {
         if (i_row == -1) {
             JOptionPane.showMessageDialog(this, "Please choose a product to import!");
         } else {
-            int soluong;
+            int quantity;
             try {
-                soluong = Integer.parseInt(txtSoLuong.getText().trim());
-                if (soluong > 0) {
+                quantity = Integer.parseInt(txtSoLuong.getText().trim());
+                if (quantity > 0) {
                     System.out.println("sinh");
-                    ReceiptDetail mtl = findCTPhieu((String) tblSanPham.getValueAt(i_row, 0));
+                    ReceiptDetail mtl = findDetailReceipt((String) tblSanPham.getValueAt(i_row, 0));
                     if (mtl != null) {
-                        mtl.setQuantity(mtl.getQuantity() + soluong);
+                        mtl.setQuantity(mtl.getQuantity() + quantity);
                     } else {
                         Computer mt = SearchProduct.getInstance().searchId((String) tblSanPham.getValueAt(i_row, 0));
-                        ReceiptDetail ctp = new ReceiptDetail(MaPhieu, mt.getProductId(), soluong, mt.getImportPrice());
-                        CTPhieu.add(ctp);
+                        ReceiptDetail ctp = new ReceiptDetail(receipID, mt.getProductId(), quantity, mt.getImportPrice());
+                        DetailReceipt.add(ctp);
                     }
                     loadDataToTableNhapHang();
-                    textTongTien.setText(formatter.format(tinhTongTien()) + "đ");
+                    textTongTien.setText(formatter.format(calTotalAmount()) + "đ");
                 } else {
                     JOptionPane.showMessageDialog(this, "Please enter a quantity greater than 0!");
                 }
@@ -466,9 +465,9 @@ public class ImportForm extends javax.swing.JInternalFrame {
         if (i_row == -1) {
             JOptionPane.showMessageDialog(this, "Please select a product to remove from the list!");
         } else {
-            CTPhieu.remove(i_row);
+            DetailReceipt.remove(i_row);
             loadDataToTableNhapHang();
-            textTongTien.setText(formatter.format(tinhTongTien()) + "đ");
+            textTongTien.setText(formatter.format(calTotalAmount()) + "đ");
         }
     }//GEN-LAST:event_deleteProductActionPerformed
 
@@ -480,13 +479,13 @@ public class ImportForm extends javax.swing.JInternalFrame {
         } else {
             String newSL = JOptionPane.showInputDialog(this, "Enter new quantity", "Update Quantity", QUESTION_MESSAGE);
             if (newSL != null) {
-                int soLuong;
+                int quantity;
                 try {
-                    soLuong = Integer.parseInt(newSL);
-                    if (soLuong > 0) {
-                        CTPhieu.get(i_row).setQuantity(soLuong);
+                    quantity = Integer.parseInt(newSL);
+                    if (quantity > 0) {
+                        DetailReceipt.get(i_row).setQuantity(quantity);
                         loadDataToTableNhapHang();
-                        textTongTien.setText(formatter.format(tinhTongTien()) + "đ");
+                        textTongTien.setText(formatter.format(calTotalAmount()) + "đ");
                     } else {
                         JOptionPane.showMessageDialog(this, "Please enter a quantity greater than 0!");
                     }
@@ -536,14 +535,14 @@ public class ImportForm extends javax.swing.JInternalFrame {
                 XSSFSheet excelSheet = excelJTableImport.getSheetAt(0);
                 for (int row = 1; row < excelSheet.getLastRowNum(); row++) {
                     XSSFRow excelRow = excelSheet.getRow(row);
-                    String maPhieu = txtMaPhieu.getText();
-                    String maSanPham = excelRow.getCell(1).getStringCellValue();
-                    String tenSanPham = excelRow.getCell(2).getStringCellValue();
-                    int soLuong = (int) (excelRow.getCell(3).getNumericCellValue());
+                    String id = txtMaPhieu.getText();
+                    String productID = excelRow.getCell(1).getStringCellValue();
+                    String name = excelRow.getCell(2).getStringCellValue();
+                    int quantity = (int) (excelRow.getCell(3).getNumericCellValue());
                 
-                    double donGia = ComputerDAO.getInstance().selectById(maSanPham).getImportPrice();
-                    ReceiptDetail ctpnew = new ReceiptDetail(maPhieu, maSanPham, soLuong, donGia);
-                    CTPhieu.add(ctpnew);
+                    double unitPrice = ComputerDAO.getInstance().selectById(productID).getImportPrice();
+                    ReceiptDetail ctpnew = new ReceiptDetail(id, productID, quantity, unitPrice);
+                    DetailReceipt.add(ctpnew);
                 }
                 loadDataToTableNhapHang();
             } catch (FileNotFoundException ex) {
@@ -558,9 +557,9 @@ public class ImportForm extends javax.swing.JInternalFrame {
     public String createId(ArrayList<ImportReceipt> arr) {
         int id = arr.size() + 1;
         String check = "";
-        for (ImportReceipt phieuNhap : arr) {
-            if (phieuNhap.getReceiptID().equals("GRN" + id)) {
-                check = phieuNhap.getReceiptID();
+        for (ImportReceipt receipt : arr) {
+            if (receipt.getReceiptID().equals("GRN" + id)) {
+                check = receipt.getReceiptID();
             }
         }
         while (check.length() != 0) {

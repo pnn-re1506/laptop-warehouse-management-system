@@ -36,7 +36,7 @@ git clone https://github.com/pnn-re1506/laptop-warehouse-management-system.git
 ### 4. Configure Database Connection
 
 Important: Check your MySQL port configuration and update if necessary.
-1. Open the file: `src/database/JDBCUtil.java`
+1. Open the file: `src/util/JDBCUtil.java`
 2. Locate line 16 with the database URL:
    ```java
    String url = "jdbc:mySQL://localhost:3307/managelaptop";
@@ -54,15 +54,17 @@ Open and run this project in NetBeans IDE
 ## Project Structure
 ```
 ├── src/
-│   ├── controller/     # Business logic and utility classes
 │   ├── dao/           # Data Access Objects for database operations
-│   ├── database/      # Database connection utilities
-│   ├── model/         # Entity classes (Account, Computer, Laptop, etc.)
-│   ├── view/          # GUI classes and forms
-│   └── icon/          # Application icons and images
+│   ├── entity/        # Entity/Model classes (Account, Computer, Laptop, etc.)
+│   ├── helpers/       # Helper and utility classes
+│   ├── icon/          # Application icons and images
+│   ├── util/          # Utility classes and database connection
+│   └── view/          # GUI classes and forms (Swing components)
 ├── database/          # Database schema and sample data
 ├── lib/              # External JAR dependencies
 ├── build/            # Compiled classes and build artifacts
+├── dist/             # Distribution files
+├── test/             # Test files
 └── nbproject/        # NetBeans project configuration
 ```
 

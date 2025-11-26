@@ -11,9 +11,9 @@ import java.awt.CardLayout;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import model.Laptop;
-import model.Computer;
-import model.PC;
+import entity.Laptop;
+import entity.Computer;
+import entity.PC;
 
 
 public class AddProduct extends javax.swing.JDialog {

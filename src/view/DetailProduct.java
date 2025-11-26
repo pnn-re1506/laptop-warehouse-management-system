@@ -4,14 +4,12 @@
  */
 package view;
 
-import dao.LaptopDAO;
-import dao.PCDAO;
 import java.awt.CardLayout;
 import java.text.DecimalFormat;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import model.Laptop;
-import model.PC;
+
+import entity.Laptop;
+import entity.PC;
 
 
 public class DetailProduct extends javax.swing.JDialog {

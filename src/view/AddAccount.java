@@ -4,9 +4,9 @@
  */
 package view;
 
-import controller.BCrypt;
+import helpers.BCrypt;
 import javax.swing.JOptionPane;
-import model.Account;
+import entity.Account;
 import dao.AccountDAO;
 
 

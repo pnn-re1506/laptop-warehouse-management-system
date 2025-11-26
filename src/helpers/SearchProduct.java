@@ -1,7 +1,7 @@
-package controller;
+package helpers;
 
 import dao.ComputerDAO;
-import model.Computer;
+import entity.Computer;
 
 import java.util.ArrayList;
 

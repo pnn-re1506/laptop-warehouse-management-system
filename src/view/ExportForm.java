@@ -4,11 +4,10 @@
  */
 package view;
 
-import controller.SearchProduct;
-import controller.WritePDF;
+import helpers.SearchProduct;
+import helpers.WritePDF;
 import dao.ExportDetailDAO;
 import dao.ComputerDAO;
-import dao.ImportDAO;
 import dao.ExportDAO;
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -25,10 +24,9 @@ import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.QUESTION_MESSAGE;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
-import model.ReceiptDetail;
-import model.Computer;
-import model.ImportReceipt;
-import model.ExportReceipt;
+import entity.ReceiptDetail;
+import entity.Computer;
+import entity.ExportReceipt;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;

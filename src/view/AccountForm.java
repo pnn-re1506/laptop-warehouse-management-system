@@ -4,13 +4,13 @@
  */
 package view;
 
-import controller.BCrypt;
-import controller.SearchAccount;
+import helpers.BCrypt;
+import helpers.SearchAccount;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
-import model.Account;
+import entity.Account;
 import dao.AccountDAO;
 import java.awt.Desktop;
 import java.io.BufferedInputStream;
@@ -24,7 +24,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import javax.swing.JFrame;
-import model.Supplier;
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;

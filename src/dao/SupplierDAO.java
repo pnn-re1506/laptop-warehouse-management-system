@@ -1,7 +1,7 @@
 package dao;
 
-import database.JDBCUtil;
-import model.Supplier;
+import util.JDBCUtil;
+import entity.Supplier;
 
 import javax.swing.*;
 import java.sql.PreparedStatement;

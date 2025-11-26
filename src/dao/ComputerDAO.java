@@ -1,7 +1,7 @@
 package dao;
 
-import database.JDBCUtil;
-import model.Computer;
+import util.JDBCUtil;
+import entity.Computer;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

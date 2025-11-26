@@ -4,7 +4,7 @@
  */
 package view;
 
-import controller.SearchProduct;
+import helpers.SearchProduct;
 import dao.LaptopDAO;
 import dao.ComputerDAO;
 import dao.PCDAO;
@@ -26,10 +26,10 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
-import model.Account;
-import model.Laptop;
-import model.Computer;
-import model.PC;
+import entity.Account;
+import entity.Laptop;
+import entity.Computer;
+import entity.PC;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;

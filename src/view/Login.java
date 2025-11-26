@@ -4,17 +4,16 @@ package view;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.mysql.cj.protocol.Resultset;
 import com.sun.jdi.connect.spi.Connection;
-import controller.BCrypt;
+import helpers.BCrypt;
 import dao.AccountDAO;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import model.Account;
+import entity.Account;
 
 
 public class Login extends javax.swing.JFrame {

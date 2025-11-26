@@ -1,4 +1,4 @@
-package controller;
+package helpers;
 
 // Copyright (c) 2006 Damien Miller <djm@mindrot.org>
 //

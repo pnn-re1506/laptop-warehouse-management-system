@@ -3,14 +3,12 @@ package view;
 
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import model.Account;
+import entity.Account;
 
 
 public class Export extends javax.swing.JFrame {

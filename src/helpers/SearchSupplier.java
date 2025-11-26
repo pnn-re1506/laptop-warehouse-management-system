@@ -1,7 +1,7 @@
-package controller;
+package helpers;
 
 import dao.SupplierDAO;
-import model.Supplier;
+import entity.Supplier;
 
 import java.util.ArrayList;
 

@@ -4,7 +4,7 @@
  */
 package view;
 
-import controller.SearchSupplier;
+import helpers.SearchSupplier;
 import dao.SupplierDAO;
 import java.awt.Desktop;
 import java.io.BufferedInputStream;
@@ -21,7 +21,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
-import model.Supplier;
+import entity.Supplier;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;

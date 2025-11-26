@@ -10,8 +10,8 @@ import java.awt.CardLayout;
 import java.text.DecimalFormat;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import model.Laptop;
-import model.PC;
+import entity.Laptop;
+import entity.PC;
 
 public class UpdateProduct extends javax.swing.JDialog {
 

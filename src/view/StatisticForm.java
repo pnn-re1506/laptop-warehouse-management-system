@@ -4,13 +4,12 @@
  */
 package view;
 
-import controller.ConvertDate;
-import controller.SearchAccount;
+import helpers.ConvertDate;
+import helpers.SearchAccount;
 import dao.AccountDAO;
 import dao.ComputerDAO;
 import dao.SupplierDAO;
 import dao.ImportDAO;
-import dao.ExportDAO;
 import dao.StatisticsDAO;
 import dao.MonthlyStatisticsDAO;
 import java.text.DecimalFormat;
@@ -26,18 +25,11 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
-import model.ImportReceipt;
-import java.util.Iterator;
-import model.Account;
-import model.Receipt;
-import model.ExportReceipt;
-import model.ProductStatistics;
+import entity.ImportReceipt;
+import entity.Account;
+import entity.ProductStatistics;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -49,7 +41,6 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import java.awt.Color;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.text.NumberFormat;
 
 /**
  *

@@ -4,14 +4,14 @@
  */
 package view;
 
-import controller.WritePDF;
+import helpers.WritePDF;
 import dao.AccountDAO;
 import dao.ExportDetailDAO;
 import dao.ComputerDAO;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
-import model.ReceiptDetail;
-import model.ExportReceipt;
+import entity.ReceiptDetail;
+import entity.ExportReceipt;
 
 public class DetailDelivery extends javax.swing.JDialog {
 

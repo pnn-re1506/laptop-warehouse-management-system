@@ -5,7 +5,7 @@
 package view;
 
 import com.formdev.flatlaf.FlatLightLaf;
-import controller.SearchProduct;
+import helpers.SearchProduct;
 import dao.AccountDAO;
 import java.sql.Timestamp;
 import dao.ImportDetailDAO;
@@ -20,10 +20,10 @@ import static javax.swing.JOptionPane.QUESTION_MESSAGE;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableModel;
-import model.ReceiptDetail;
-import model.Computer;
-import model.Supplier;
-import model.ImportReceipt;
+import entity.ReceiptDetail;
+import entity.Computer;
+import entity.Supplier;
+import entity.ImportReceipt;
 
 public class UpdateReceipt extends javax.swing.JDialog {
 

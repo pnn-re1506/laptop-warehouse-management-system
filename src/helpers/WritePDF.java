@@ -1,4 +1,4 @@
-package controller;
+package helpers;
 
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
@@ -9,7 +9,6 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Phrase;
-import com.itextpdf.text.TabSettings;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.draw.VerticalPositionMark;
@@ -34,10 +33,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import model.ReceiptDetail;
-import model.Computer;
-import model.ImportReceipt;
-import model.ExportReceipt;
+import entity.ReceiptDetail;
+import entity.Computer;
+import entity.ImportReceipt;
+import entity.ExportReceipt;
 
 public class WritePDF {
 

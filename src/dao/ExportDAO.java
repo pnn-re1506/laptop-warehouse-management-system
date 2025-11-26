@@ -1,7 +1,7 @@
 package dao;
 
-import database.JDBCUtil;
-import model.ExportReceipt;
+import util.JDBCUtil;
+import entity.ExportReceipt;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

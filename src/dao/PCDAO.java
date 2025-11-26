@@ -1,9 +1,7 @@
 package dao;
 
-import database.JDBCUtil;
-import model.Computer;
-import model.Laptop;
-import model.PC;
+import util.JDBCUtil;
+import entity.PC;
 
 import javax.swing.*;
 import java.sql.Connection;

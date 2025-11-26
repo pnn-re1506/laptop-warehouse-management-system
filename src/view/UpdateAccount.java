@@ -1,13 +1,9 @@
 
 package view;
 
-import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.table.DefaultTableModel;
-import view.AccountForm;
-import model.Account;
+
+import entity.Account;
 import dao.AccountDAO;
 
 

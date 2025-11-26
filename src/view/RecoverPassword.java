@@ -2,15 +2,15 @@
 package view;
 
 import com.formdev.flatlaf.FlatLightLaf;
-import controller.BCrypt;
-import controller.SendMailSMTP;
+import helpers.BCrypt;
+import helpers.SendMailSMTP;
 import dao.AccountDAO;
 import java.awt.CardLayout;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import model.Account;
+import entity.Account;
 
 public class RecoverPassword extends javax.swing.JDialog {
 

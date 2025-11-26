@@ -1,7 +1,7 @@
 package dao;
 
-import database.JDBCUtil;
-import model.ProductStatistics;
+import util.JDBCUtil;
+import entity.ProductStatistics;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

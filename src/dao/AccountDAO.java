@@ -9,9 +9,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import database.JDBCUtil;
-import javax.swing.JOptionPane;
-import model.Account;
+import util.JDBCUtil;
+import entity.Account;
 
 public class AccountDAO implements DAOInterface<Account> {
 

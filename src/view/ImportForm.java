@@ -4,15 +4,13 @@
  */
 package view;
 
-import controller.SearchProduct;
-import controller.WritePDF;
-import dao.AccountDAO;
+import helpers.SearchProduct;
+import helpers.WritePDF;
 import dao.ImportDetailDAO;
 import dao.ComputerDAO;
 import dao.SupplierDAO;
 import dao.ImportDAO;
-import dao.ExportDAO;
-import java.awt.Desktop;
+
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -28,12 +26,11 @@ import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.QUESTION_MESSAGE;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
-import model.Account;
-import model.ReceiptDetail;
-import model.Computer;
-import model.Supplier;
-import model.Receipt;
-import model.ImportReceipt;
+
+import entity.ReceiptDetail;
+import entity.Computer;
+import entity.Supplier;
+import entity.ImportReceipt;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;

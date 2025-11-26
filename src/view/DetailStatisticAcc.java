@@ -5,19 +5,12 @@
 package view;
 
 import dao.AccountDAO;
-import dao.ImportDetailDAO;
-import dao.ExportDetailDAO;
-import dao.ComputerDAO;
 import dao.ImportDAO;
-import dao.ExportDAO;
-import java.sql.Timestamp;
+
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
-import model.Account;
-import model.ReceiptDetail;
-import model.Receipt;
-import model.ImportReceipt;
-import model.ExportReceipt;
+import entity.Account;
+import entity.Receipt;
 
 public class DetailStatisticAcc extends javax.swing.JDialog {
 

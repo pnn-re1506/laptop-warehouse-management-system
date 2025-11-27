@@ -1,6 +1,6 @@
 package dao;
 
-import util.JDBCUtil;
+import database.JDBCUtil;
 import entity.ExportReceipt;
 
 import java.sql.Connection;

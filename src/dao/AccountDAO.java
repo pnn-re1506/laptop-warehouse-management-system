@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import util.JDBCUtil;
+import database.JDBCUtil;
 import entity.Account;
 
 public class AccountDAO implements DAOInterface<Account> {

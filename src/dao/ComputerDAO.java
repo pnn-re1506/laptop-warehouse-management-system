@@ -1,6 +1,6 @@
 package dao;
 
-import util.JDBCUtil;
+import database.JDBCUtil;
 import entity.Computer;
 
 import java.sql.Connection;

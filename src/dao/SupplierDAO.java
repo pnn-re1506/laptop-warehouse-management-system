@@ -1,6 +1,6 @@
 package dao;
 
-import util.JDBCUtil;
+import database.JDBCUtil;
 import entity.Supplier;
 
 import javax.swing.*;

@@ -1,4 +1,4 @@
-package util;
+package database;
 
 import com.mysql.jdbc.Driver;
 

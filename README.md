@@ -36,7 +36,7 @@ git clone https://github.com/pnn-re1506/laptop-warehouse-management-system.git
 ### 4. Configure Database Connection
 
 Important: Check your MySQL port configuration and update if necessary.
-1. Open the file: `src/util/JDBCUtil.java`
+1. Open the file: `src/database/JDBCUtil.java`
 2. Locate line 16 with the database URL:
    ```java
    String url = "jdbc:mySQL://localhost:3307/managelaptop";
@@ -73,4 +73,4 @@ Open and run this project in NetBeans IDE
 After setting up the database, you can log in with the default admin account:
 
 - Username: admin
-- Password: 15062005
+- Password: 123456

@@ -55,10 +55,10 @@ Open and run this project in NetBeans IDE
 ```
 ├── src/
 │   ├── dao/           # Data Access Objects for database operations
+│   ├── database/      # Database connection
 │   ├── entity/        # Entity/Model classes (Account, Computer, Laptop, etc.)
 │   ├── helpers/       # Helper and utility classes
 │   ├── icon/          # Application icons and images
-│   ├── util/          # Utility classes and database connection
 │   └── view/          # GUI classes and forms (Swing components)
 ├── database/          # Database schema and sample data
 ├── lib/              # External JAR dependencies

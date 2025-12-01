@@ -62,7 +62,7 @@ public class LaptopDAO implements DAOInterface<Laptop> {
             pst.setDouble(11, l.getScreenSize());
             pst.setInt(12, l.getStatus());
             pst.setString(13, l.getProductId());
-            result = pst.executeUpdate(sql);
+            result = pst.executeUpdate();
             JDBCUtil.closeConnection(con);
         } catch (SQLException ex) {
             Logger.getLogger(LaptopDAO.class.getName()).log(Level.SEVERE, null, ex);

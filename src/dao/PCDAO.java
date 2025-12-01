@@ -63,7 +63,7 @@ public class PCDAO implements DAOInterface<PC> {
             pst.setString(11, pc.getStorage());
             pst.setInt(12, pc.getStatus());
             pst.setString(13, pc.getProductId());
-            result = pst.executeUpdate(sql);
+            result = pst.executeUpdate();
             JDBCUtil.closeConnection(con);
         } catch (SQLException ex) {
             Logger.getLogger(LaptopDAO.class.getName()).log(Level.SEVERE, null, ex);

@@ -17,14 +17,21 @@ public class UpdateProduct extends javax.swing.JDialog {
 
     private ProductForm owner;
     DecimalFormat formatterE = new DecimalFormat("0");
-    
+    private int originalQuantity; // Lưu số lượng gốc, không cho phép thay đổi
+
     public UpdateProduct(javax.swing.JInternalFrame parent, javax.swing.JFrame owner, boolean modal) {
         super(owner, modal);
         this.owner = (ProductForm) parent;
         initComponents();
         setLocationRelativeTo(null);
+
+        // Đặt txtSoLuong thành read-only
+        txtSoLuong.setEditable(false);
+        txtSoLuong.setFocusable(false);
+
         if (this.owner.checklap()) {
             Laptop a = this.owner.getDetailLapTop();
+            originalQuantity = a.getQuantity(); // Lưu số lượng gốc
             txtMaSanPham.setText(a.getProductId());
             txtTenSanPham.setText(a.getProductName());
             txtGiaXuat.setText(formatterE.format(a.getExportPrice()));
@@ -38,6 +45,7 @@ public class UpdateProduct extends javax.swing.JDialog {
             txtSoLuong.setText(a.getQuantity() + "");
         } else {
             PC a = this.owner.getDetailPC();
+            originalQuantity = a.getQuantity(); // Lưu số lượng gốc
             txtMaSanPham.setText(a.getProductId());
             txtTenSanPham.setText(a.getProductName());
             txtGiaXuat.setText(formatterE.format(a.getExportPrice()));
@@ -389,14 +397,11 @@ public class UpdateProduct extends javax.swing.JDialog {
         // TODO add your handling code here:
         String id = txtMaSanPham.getText();
         String name = txtTenSanPham.getText();
-        int quantity = 0;
+        // Sử dụng originalQuantity - không cho phép thay đổi quantity
+        int quantity = originalQuantity;
         double imPrice = 0;
         double exPrice = 0;
-        try {
-            quantity = Integer.parseInt(txtSoLuong.getText());
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Please enter quantity in numeric format!");
-        }
+
         try {
             imPrice = Double.parseDouble(txtGiaNhap.getText());
             exPrice = Double.parseDouble(txtGiaXuat.getText());
@@ -424,6 +429,7 @@ public class UpdateProduct extends javax.swing.JDialog {
                 screen = Double.parseDouble(txtKichThuocMan.getText());
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Please enter screen size in numeric format!");
+                return;
             }
             if (id.equals("") || name.equals("") || cpu.equals("") || ram.equals("") || rom.equals("") || gpu.equals("")) {
                 JOptionPane.showMessageDialog(this, "Please fill in all required information!");

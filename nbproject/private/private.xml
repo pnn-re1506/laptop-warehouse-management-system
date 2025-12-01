@@ -12,9 +12,10 @@
             <file>file:/C:/Users/phucn/OneDrive/Documents/laptop-warehouse-management-system/src/view/AddAccount.java</file>
             <file>file:/C:/Users/phucn/OneDrive/Documents/laptop-warehouse-management-system/src/view/Export.java</file>
             <file>file:/C:/Users/phucn/OneDrive/Documents/laptop-warehouse-management-system/src/dao/ComputerDAO.java</file>
-            <file>file:/C:/Users/phucn/OneDrive/Documents/laptop-warehouse-management-system/src/helpers/BCrypt.java</file>
             <file>file:/C:/Users/phucn/OneDrive/Documents/laptop-warehouse-management-system/src/view/ChangePassword.java</file>
             <file>file:/C:/Users/phucn/OneDrive/Documents/laptop-warehouse-management-system/src/entity/Laptop.java</file>
+            <file>file:/C:/Users/phucn/OneDrive/Documents/laptop-warehouse-management-system/src/helpers/ConvertDate.java</file>
+            <file>file:/C:/Users/phucn/OneDrive/Documents/laptop-warehouse-management-system/src/dao/AccountDAO.java</file>
         </group>
     </open-files>
 </project-private>

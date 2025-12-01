@@ -2,22 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/phucn/OneDrive/Documents/laptop-warehouse-management-system/src/view/ExportForm.java</file>
-            <file>file:/C:/Users/phucn/OneDrive/Documents/laptop-warehouse-management-system/src/view/ImportForm.java</file>
-            <file>file:/C:/Users/phucn/OneDrive/Documents/laptop-warehouse-management-system/src/view/StatisticForm.java</file>
-            <file>file:/C:/Users/phucn/OneDrive/Documents/laptop-warehouse-management-system/src/view/ProductForm.java</file>
-            <file>file:/C:/Users/phucn/OneDrive/Documents/laptop-warehouse-management-system/src/view/AddProduct.java</file>
-            <file>file:/C:/Users/phucn/OneDrive/Documents/laptop-warehouse-management-system/src/view/AccountForm.java</file>
-            <file>file:/C:/Users/phucn/OneDrive/Documents/laptop-warehouse-management-system/src/view/AddAccount.java</file>
-            <file>file:/C:/Users/phucn/OneDrive/Documents/laptop-warehouse-management-system/src/view/Export.java</file>
-            <file>file:/C:/Users/phucn/OneDrive/Documents/laptop-warehouse-management-system/src/dao/ComputerDAO.java</file>
-            <file>file:/C:/Users/phucn/OneDrive/Documents/laptop-warehouse-management-system/src/view/ChangePassword.java</file>
-            <file>file:/C:/Users/phucn/OneDrive/Documents/laptop-warehouse-management-system/src/entity/Laptop.java</file>
-            <file>file:/C:/Users/phucn/OneDrive/Documents/laptop-warehouse-management-system/src/helpers/ConvertDate.java</file>
-            <file>file:/C:/Users/phucn/OneDrive/Documents/laptop-warehouse-management-system/src/dao/AccountDAO.java</file>
-            <file>file:/C:/Users/phucn/OneDrive/Documents/laptop-warehouse-management-system/src/database/JDBCUtil.java</file>
-            <file>file:/C:/Users/phucn/OneDrive/Documents/laptop-warehouse-management-system/src/dao/PCDAO.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

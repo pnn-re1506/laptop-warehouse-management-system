@@ -35,21 +35,34 @@ git clone https://github.com/pnn-re1506/laptop-warehouse-management-system.git
 
 ### 4. Configure Database Connection
 
-Important: Check your MySQL port configuration and update if necessary.
-1. Open the file: `src/database/JDBCUtil.java`
-2. Locate line 16 with the database URL:
-   ```java
-   String url = "jdbc:mySQL://localhost:3307/managelaptop";
-   ```
-3. If your MySQL runs on port 3306 (default), change it to:
-   ```java
-   String url = "jdbc:mySQL://localhost:3306/managelaptop";
-   ```
-4. If you're using a different port, update accordingly
+By default, the app connects to:
+
+```text
+jdbc:mysql://localhost:3306/managelaptop?useSSL=false&characterEncoding=UTF-8
+```
+
+You can override the connection without changing source code by setting environment variables:
+
+```bash
+DB_URL=jdbc:mysql://your-host:3306/managelaptop?useSSL=false&characterEncoding=UTF-8
+DB_USERNAME=your_username
+DB_PASSWORD=your_password
+```
 
 ### 5. Run the Project
 
-Open and run this project in NetBeans IDE
+Run with Maven:
+
+```bash
+mvn exec:java
+```
+
+Or build an executable JAR:
+
+```bash
+mvn clean package
+java -jar target/LaptopWarehouseManagementSystem.jar
+```
 
 ## Project Structure
 ```

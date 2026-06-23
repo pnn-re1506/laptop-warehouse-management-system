@@ -1,12 +1,28 @@
-# IntelliJ IDEA
-**/.idea/
+# Maven
+target/
+
+# Local documentation drafts
+docs/
+
+# IDE - IntelliJ IDEA
+.idea/
 *.iml
+out/
+
+# IDE - Eclipse
+.classpath
+.project
+.settings/
+
+# IDE - VS Code
+.vscode/
 
 # Build output
-out/
 *.class
 
 # Logs
 *.log
-/dist/
-/build/
+
+# OS files
+.DS_Store
+Thumbs.db

@@ -12,10 +12,8 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `computer_inventory`
+-- Database will be selected by the client (DBeaver/JDBC)
 --
-CREATE DATABASE IF NOT EXISTS `computer_inventory` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `computer_inventory`;
 
 -- --------------------------------------------------------
 

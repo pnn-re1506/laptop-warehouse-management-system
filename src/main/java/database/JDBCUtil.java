@@ -7,13 +7,13 @@ import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 
 public class JDBCUtil {
-    public static Connection getConnection(){
+    public static Connection getConnection() {
         Connection c = null;
         try {
             // register mySQL Driver with DriverManager
             DriverManager.registerDriver(new Driver());
 
-            String url = "jdbc:mySQL://localhost:3307/managelaptop";
+            String url = "jdbc:mySQL://localhost:3306/computer_inventory";
             String userName = "root";
             String password = "";
 
@@ -22,32 +22,28 @@ public class JDBCUtil {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
         return c;
-
     }
 
-    public static void closeConnection(Connection c){
+    public static void closeConnection(Connection c) {
         try {
-            if(c != null){
+            if (c != null) {
                 c.close();
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
-    public static void printInformation(Connection c){
+    public static void printInformation(Connection c) {
         try {
             if (c != null) {
                 DatabaseMetaData metadata = c.getMetaData();
                 System.out.println(metadata.getDatabaseProductName());
                 System.out.println(metadata.getDatabaseProductVersion());
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

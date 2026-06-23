@@ -10,3 +10,5 @@ out/
 *.log
 /dist/
 /build/
+/target/
+/nbproject/

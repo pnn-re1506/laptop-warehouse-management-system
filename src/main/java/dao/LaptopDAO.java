@@ -14,7 +14,10 @@ import java.util.logging.Logger;
 
 public class LaptopDAO implements DAOInterface<Laptop> {
 
-    public static LaptopDAO getInstance(){return new LaptopDAO();}
+    public static LaptopDAO getInstance() {
+        return new LaptopDAO();
+    }
+
     @Override
     public int insert(Laptop l) {
         int result = 0;
@@ -37,7 +40,7 @@ public class LaptopDAO implements DAOInterface<Laptop> {
             result = pst.executeUpdate();
             JDBCUtil.closeConnection(con);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Can not add  " + l.getProductId(),"Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Can not add  " + l.getProductId(), "Error", JOptionPane.ERROR_MESSAGE);
         }
         return result;
     }
@@ -107,7 +110,8 @@ public class LaptopDAO implements DAOInterface<Laptop> {
                 String storage = rs.getString("storage");
                 int status = rs.getInt("status");
                 double screenSize = rs.getDouble("screenSize");
-                Laptop l = new Laptop(productId,productName,quantity,cpuName,ram,graphicsCard,importPrice,exportPrice,storage,status,screenSize);
+                Laptop l = new Laptop(productId, productName, quantity, cpuName, ram, graphicsCard, importPrice,
+                        exportPrice, storage, status, screenSize);
                 result.add(l);
             }
             JDBCUtil.closeConnection(con);
@@ -139,7 +143,8 @@ public class LaptopDAO implements DAOInterface<Laptop> {
                 String storage = rs.getString("storage");
                 int status = rs.getInt("status");
                 double screenSize = rs.getDouble("screenSize");
-                result = new Laptop(productId,productName,quantity,cpuName,ram,graphicsCard,importPrice,exportPrice,storage,status,screenSize);
+                result = new Laptop(productId, productName, quantity, cpuName, ram, graphicsCard, importPrice,
+                        exportPrice, storage, status, screenSize);
             }
             JDBCUtil.closeConnection(con);
 
@@ -170,6 +175,5 @@ public class LaptopDAO implements DAOInterface<Laptop> {
         }
         return false;
     }
-
 
 }

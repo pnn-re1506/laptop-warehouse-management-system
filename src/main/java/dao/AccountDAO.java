@@ -131,7 +131,7 @@ public class AccountDAO implements DAOInterface<Account> {
             }
             JDBCUtil.closeConnection(con);
         } catch (Exception e) {
-            // TODO: handle exception
+            e.printStackTrace();
         }
         return acc;
     }
